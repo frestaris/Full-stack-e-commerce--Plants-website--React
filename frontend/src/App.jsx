@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/home/Home";
 import Footer from "./components/Footer";
 import CategoryPage from "./pages/category/CategoryPage";
+import Search from "./pages/search/Search";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/categories/:categoryName" element={<CategoryPage />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
     </BrowserRouter>
