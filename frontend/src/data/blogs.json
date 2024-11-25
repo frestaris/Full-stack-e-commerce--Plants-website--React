@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Growing Your Own Indoor Garden",
+    "subtitle": "A Beginner's Guide",
+    "date": "10th September 2023",
+    "imageUrl": "https://pipmagazine.com.au/wp-content/uploads/2021/01/6-Indoor-Plants-For-Beginners-768x482.jpg"
+  },
+  {
+    "id": 2,
+    "title": "The Best Plants for Your Home Office",
+    "subtitle": "Improve Focus and Productivity",
+    "date": "22nd March 2024",
+    "imageUrl": "https://pipmagazine.com.au/wp-content/uploads/2021/01/6-Indoor-Plants-For-Beginners-768x482.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Low Maintenance Plants for Busy People",
+    "subtitle": "Perfect for Beginners",
+    "date": "15th June 2023",
+    "imageUrl": "https://pipmagazine.com.au/wp-content/uploads/2021/01/6-Indoor-Plants-For-Beginners-768x482.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Caring for Succulents: A Guide to Watering and Sunlight",
+    "subtitle": "Tips for Thriving Plants",
+    "date": "5th December 2023",
+    "imageUrl": "https://pipmagazine.com.au/wp-content/uploads/2021/01/6-Indoor-Plants-For-Beginners-768x482.jpg"
+  }
+]
