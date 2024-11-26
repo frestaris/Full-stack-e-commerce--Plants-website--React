@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import CategoryPage from "./pages/category/CategoryPage";
 import Search from "./pages/search/Search";
 import ShopPage from "./pages/shop/ShopPage";
+import SingleProduct from "./pages/shop/productDetails/SingleProduct";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/categories/:categoryName" element={<CategoryPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:id" element={<SingleProduct />} />
       </Routes>
       <Footer />
     </BrowserRouter>

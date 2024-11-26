@@ -6,7 +6,7 @@ const RatingStars = ({ rating }) => {
   const emptyStars = 5 - Math.ceil(rating);
 
   return (
-    <div className="flex justify-center items-center space-x-1 pt-2">
+    <div className="flex justify-center items-center space-x-1">
       {[...Array(fullStars)].map((_, index) => (
         <FaStar key={index} className="text-yellow-500" />
       ))}
