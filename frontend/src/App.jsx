@@ -7,12 +7,15 @@ import CategoryPage from "./pages/category/CategoryPage";
 import Search from "./pages/search/Search";
 import ShopPage from "./pages/shop/ShopPage";
 import SingleProduct from "./pages/shop/productDetails/SingleProduct";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
     >
+      <ToastContainer position="top-center" autoClose={2000} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

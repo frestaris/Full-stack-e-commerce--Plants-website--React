@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import RatingStars from "../../components/RatingStars";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/features/cartSlice";
+import { toast } from "react-toastify";
 
 const ProductCards = ({ products }) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  const handleAddToCart = (product) => {
+    const isExists = cart.products.find((item) => item.id === product.id);
+
+    if (isExists) {
+      toast.info("Item already in the cart");
+    } else {
+      dispatch(addToCart(product));
+      toast.success("Item added to the cart");
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5">
       {products.map((product, index) => (
@@ -16,7 +33,13 @@ const ProductCards = ({ products }) => {
               />
             </Link>
             <div className="absolute top-3 right-3">
-              <button className="p-2 bg-green-800 text-white hover:bg-green-700 focus:outline-none">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCart(product);
+                }}
+                className="p-2 bg-green-800 text-white hover:bg-green-700 focus:outline-none"
+              >
                 <FaShoppingCart className="text-xl" />
               </button>
             </div>
