@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { clearCart } from "../../redux/features/cartSlice";
+import { clearCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 
 const OrderSummary = () => {

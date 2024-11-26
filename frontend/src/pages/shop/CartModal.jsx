@@ -2,7 +2,10 @@ import { RxCross1 } from "react-icons/rx";
 import OrderSummary from "./OrderSummary";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateQuantity, removeFromCart } from "../../redux/features/cartSlice";
+import {
+  updateQuantity,
+  removeFromCart,
+} from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 
 const CartModal = ({ products, isOpen, onClose }) => {

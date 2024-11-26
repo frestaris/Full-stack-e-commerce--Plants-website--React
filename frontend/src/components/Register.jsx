@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterUserMutation } from "../redux/features/auth/authApi";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [registerUser] = useRegisterUserMutation();
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -14,7 +19,14 @@ const Register = () => {
       email,
       password,
     };
-    console.log(data);
+    try {
+      await registerUser(data).unwrap();
+      toast.success("Registration completed!");
+      navigate("/login");
+    } catch (error) {
+      setMessage("Registration failed");
+      console.error(error);
+    }
   };
 
   return (

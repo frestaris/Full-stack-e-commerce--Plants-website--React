@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import RatingStars from "../../components/RatingStars";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/features/cartSlice";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 
 const ProductCards = ({ products }) => {
