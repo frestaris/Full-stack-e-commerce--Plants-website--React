@@ -1,8 +1,24 @@
 import { RxCross1 } from "react-icons/rx";
 import OrderSummary from "./OrderSummary";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateQuantity, removeFromCart } from "../../redux/features/cartSlice";
+import { toast } from "react-toastify";
 
 const CartModal = ({ products, isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
+  const handleQuantity = (type, id) => {
+    const payload = { type, id };
+    dispatch(updateQuantity(payload));
+  };
+
+  const handleRemove = (e, id) => {
+    e.preventDefault();
+    dispatch(removeFromCart({ id }));
+    toast.info("Product removed!");
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -66,18 +82,27 @@ const CartModal = ({ products, isOpen, onClose }) => {
                   {/* Right section */}
                   <div className="flex items-center">
                     <div className="flex items-center">
-                      <button className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-green-800 hover:text-white ml-8">
+                      <button
+                        onClick={() => handleQuantity("decrement", item.id)}
+                        className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-green-800 hover:text-white ml-8"
+                      >
                         -
                       </button>
                       <span className="px-2 text-center mx-1">
                         {item.quantity}
                       </span>
-                      <button className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-green-800 hover:text-white ">
+                      <button
+                        onClick={() => handleQuantity("increment", item.id)}
+                        className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-green-800 hover:text-white "
+                      >
                         +
                       </button>
                     </div>
                     <div className="ml-5">
-                      <button className="bg-red-500 w-5 h-5 flex items-center justify-center rounded text-white hover:bg-red-600">
+                      <button
+                        onClick={(e) => handleRemove(e, item.id)}
+                        className="bg-red-500 w-5 h-5 flex items-center justify-center rounded text-white hover:bg-red-600"
+                      >
                         <RxCross1 className="text-xs" />
                       </button>
                     </div>

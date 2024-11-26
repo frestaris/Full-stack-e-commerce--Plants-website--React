@@ -25,6 +25,42 @@ const cartSlice = createSlice({
       state.tax = calculateTax(state);
       state.grandTotal = calculateGrandTotal(state);
     },
+    updateQuantity: (state, action) => {
+      const product = state.products.find(
+        (product) => product.id === action.payload.id
+      );
+
+      if (product) {
+        if (action.payload.type === "increment") {
+          product.quantity += 1;
+        } else if (action.payload.type === "decrement") {
+          if (product.quantity > 1) {
+            product.quantity -= 1;
+          }
+        }
+      }
+
+      state.selectedItems = calculateSelectedItems(state);
+      state.totalPrice = calculateTotalPrice(state);
+      state.tax = calculateTax(state);
+      state.grandTotal = calculateGrandTotal(state);
+    },
+    removeFromCart: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload.id
+      );
+      state.selectedItems = calculateSelectedItems(state);
+      state.totalPrice = calculateTotalPrice(state);
+      state.tax = calculateTax(state);
+      state.grandTotal = calculateGrandTotal(state);
+    },
+    clearCart: (state) => {
+      state.products = [];
+      state.selectedItems = 0;
+      state.totalPrice = 0;
+      state.tax = 0;
+      state.grandTotal = 0;
+    },
   },
 });
 
@@ -44,5 +80,6 @@ export const calculateGrandTotal = (state) => {
   return calculateTotalPrice(state) + calculateTax(state);
 };
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, updateQuantity, removeFromCart, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
