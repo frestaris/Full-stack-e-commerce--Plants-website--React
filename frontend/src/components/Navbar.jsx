@@ -30,7 +30,13 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="nav__logo">
-          <Link to="/">Logo</Link>
+          <Link to="/">
+            <img
+              className=""
+              src="https://static.vecteezy.com/system/resources/thumbnails/012/578/976/small/leaf-and-pot-icon-potted-plant-icon-trendy-design-leaf-on-pot-icon-garden-logo-illustration-vector.jpg"
+              alt="logo image"
+            />
+          </Link>
         </div>
 
         <div className="nav__icons relative">

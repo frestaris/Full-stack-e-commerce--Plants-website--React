@@ -48,7 +48,7 @@ const SingleProduct = () => {
           <div className="md:w-1/2 w-full">
             <h3 className="text-2xl font-semibold mb-4">{product.name}</h3>
             <p className="text-xl text-primary mb-4">
-              ${product.price}
+              ${product.price}{" "}
               <s className="text-slate-500">${product.oldPrice}</s>
             </p>
             <p className="text-gray-700 mb-4">{product.description}</p>

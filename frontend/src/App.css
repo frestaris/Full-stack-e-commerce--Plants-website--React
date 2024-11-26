@@ -74,7 +74,7 @@ body {
 nav {
   max-width: var(--max-width-1200);
   margin: auto;
-  padding: 2rem 1rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -88,20 +88,10 @@ nav {
   gap: 2rem;
 }
 
-.link a {
-  font-weight: 500;
-  color: var(--text-dark);
-}
-
-.link a:hover {
-  color: var(--primary-color);
-}
-
-.nav__logo a {
-  font-size: 2rem;
-  font-weight: 800;
-  font-family: var(--header-font);
-  color: var(--text-dark);
+.nav__logo img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
 .nav__logo a span {
