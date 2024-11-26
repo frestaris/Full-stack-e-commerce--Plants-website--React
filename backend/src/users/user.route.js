@@ -1,5 +1,6 @@
 import express from "express";
 import User from "./user.model.js";
+import { generateToken } from "../middleware/generateToken.js";
 
 const router = express.Router();
 
@@ -24,9 +25,30 @@ router.post("/login", async (req, res) => {
     }
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(404).send({ message: "Password not match" });
+      return res.status(401).send({ message: "Password does not match" });
     }
-    res.status(200).send({ message: "Login successful", user });
+
+    const token = await generateToken(user._id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+
+    res.status(200).send({
+      message: "Login successful",
+      token,
+      user: {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        profileImage: user.profileImage,
+        bio: user.bio,
+        profession: user.profession,
+      },
+    });
   } catch (error) {
     console.error("Error logged in user", error);
     res.status(500).send({ message: "Error logged in user" });
