@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import heroPic from "../../assets/hero-img.png";
 const Banner = () => {
   return (
     <div className="section__container header__container">
@@ -17,10 +17,7 @@ const Banner = () => {
         </button>
       </div>
       <div>
-        <img
-          className="header__image"
-          src="https://aquafy.com.au/cdn/shop/files/53536B3B-6954-4076-97C8-D78DDF37D34E_1024x1024.jpg?v=1721908348"
-        />
+        <img className="header__image" src={heroPic} />
       </div>
     </div>
   );

@@ -9,6 +9,8 @@ import ShopPage from "./pages/shop/ShopPage";
 import SingleProduct from "./pages/shop/productDetails/SingleProduct";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:id" element={<SingleProduct />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </BrowserRouter>
