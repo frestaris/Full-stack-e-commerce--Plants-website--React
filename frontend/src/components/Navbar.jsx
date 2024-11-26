@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { FaSearch, FaShoppingBasket, FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import CartModal from "../pages/shop/CartModal";
 
 const Navbar = () => {
   const products = useSelector((state) => state.cart.products);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleCartToggle = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <header className="fixed-nav-bar w-nav">
@@ -33,7 +40,10 @@ const Navbar = () => {
             </Link>
           </span>
           <span className="relative">
-            <button className="hover:text-green-800 relative mt-2">
+            <button
+              onClick={handleCartToggle}
+              className="hover:text-green-800 relative mt-2"
+            >
               <FaShoppingBasket className="text-xl" />
               <sup className="absolute -top-2 -right-2 text-xs px-1.5 bg-red-500 text-white rounded-full">
                 {products.length}
@@ -47,6 +57,13 @@ const Navbar = () => {
           </span>
         </div>
       </nav>
+      {isCartOpen && (
+        <CartModal
+          products={products}
+          isOpen={isCartOpen}
+          onClose={handleCartToggle}
+        />
+      )}
     </header>
   );
 };
