@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/features/auth/authApi";
 import { toast } from "react-toastify";
+import { setUser } from "../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [message, setMessage] = useState("");
@@ -9,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const [loginUser] = useLoginUserMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,6 +23,8 @@ const Login = () => {
     try {
       const response = await loginUser(data).unwrap();
       console.log(response);
+      const { token, user } = response;
+      dispatch(setUser({ user }));
       toast.success("Login successful");
       navigate("/");
     } catch (error) {
