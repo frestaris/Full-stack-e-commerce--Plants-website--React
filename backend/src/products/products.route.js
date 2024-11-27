@@ -45,4 +45,50 @@ router.post("/create-product", async (req, res) => {
   }
 });
 
+// GET ALL PRODUCTS
+router.get("/", async (req, res) => {
+  try {
+    const { category, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
+
+    // Construct the filter object
+    let filter = {};
+    if (category && category !== "all") {
+      filter.category = category;
+    }
+
+    // Price range filter
+    if (minPrice || maxPrice) {
+      const min = parseFloat(minPrice) || 0;
+      const max = parseFloat(maxPrice) || Number.MAX_VALUE;
+      if (!isNaN(min) && !isNaN(max)) {
+        filter.price = { $gte: min, $lte: max };
+      }
+    }
+
+    // Pagination setup
+    const pageNum = Math.max(1, parseInt(page));
+    const itemsPerPage = Math.max(1, parseInt(limit));
+    const skip = (pageNum - 1) * itemsPerPage;
+
+    // Query the database
+    const totalProducts = await Products.countDocuments(filter);
+    const totalPages = Math.ceil(totalProducts / itemsPerPage);
+    const products = await Products.find(filter)
+      .skip(skip)
+      .limit(itemsPerPage)
+      .populate("author", "email")
+      .sort({ createdAt: -1 });
+
+    // Send response
+    res.status(200).json({ products, totalPages, totalProducts });
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+
+    res.status(500).json({
+      error: "Internal server error",
+      message: error.message,
+    });
+  }
+});
+
 export default router;
