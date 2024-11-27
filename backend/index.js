@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./src/users/user.route.js";
+import productRoutes from "./src/products/products.route.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 const port = process.env.PORT || 3000;
 
