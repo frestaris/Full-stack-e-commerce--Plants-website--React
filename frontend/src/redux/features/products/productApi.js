@@ -4,10 +4,10 @@ import { getBaseUrl } from "../../../utils/baseUrl";
 const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/api/products`,
+    baseUrl: `${getBaseUrl()}api/products`,
     credentials: "include",
   }),
-  tagTypes: ["Products"], // Tags for cache invalidation
+  tagTypes: ["Products"],
   endpoints: (builder) => ({
     // Fetch all products
     fetchAllProducts: builder.query({
@@ -19,9 +19,9 @@ const productsApi = createApi({
         limit = 10,
       }) => {
         const queryParams = new URLSearchParams({
-          category,
-          minPrice: minPrice.toString(),
-          maxPrice: maxPrice.toString(),
+          ...(category && { category }),
+          ...(minPrice && { minPrice: minPrice.toString() }),
+          ...(maxPrice && { maxPrice: maxPrice.toString() }),
           page: page.toString(),
           limit: limit.toString(),
         }).toString();

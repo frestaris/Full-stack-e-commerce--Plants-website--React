@@ -75,16 +75,16 @@
     "price": 19.99,
     "oldPrice": 24.99,
     "image": "https://www.girljustdiy.com/wp-content/uploads/2016/05/Succulent-Garden-Closeup2.jpg",
-    "rating": 4.5
+    "rating": 5
   },
   {
     "id": 9,
     "name": "Hanging Planter",
     "category": "Plant Accessories",
     "description": "Decorative hanging planter for indoor or outdoor use.",
-    "price": 14.99,
+    "price": 214.99,
     "image": "https://www.girljustdiy.com/wp-content/uploads/2016/05/Succulent-Garden-Closeup2.jpg",
-    "rating": 4.3
+    "rating": 3.3
   },
   {
     "id": 10,
