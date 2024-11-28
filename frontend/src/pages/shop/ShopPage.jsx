@@ -1,9 +1,7 @@
 import { useState } from "react";
-
 import ProductCards from "./ProductCards";
-import productsData from "../../data/products.json";
 import ShopFiltering from "../shop/ShopFiltering";
-import { useEffect } from "react";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productApi";
 
 const filters = {
   categories: [
@@ -39,56 +37,59 @@ const filters = {
 };
 
 const ShopPage = () => {
-  const [products, setProducts] = useState(productsData);
   const [filtersState, setFiltersState] = useState({
-    category: "all",
+    category: "All",
     priceRange: "",
     rating: 0,
   });
 
-  // filtering functions
-  const applyFilters = () => {
-    let filteredProducts = productsData;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ProductsPerPage] = useState(8);
 
-    // Filter by category
-    if (filtersState.category && filtersState.category !== "all") {
-      filteredProducts = filteredProducts.filter(
-        (product) => product.category === filtersState.category
-      );
-    }
+  const { category, rating, priceRange } = filtersState;
 
-    // Filter by price range
-    if (filtersState.priceRange) {
-      const [minPrice, maxPrice] = filtersState.priceRange
-        .split("-")
-        .map((value) => (value === "Infinity" ? Infinity : parseFloat(value)));
-      filteredProducts = filteredProducts.filter(
-        (product) => product.price >= minPrice && product.price <= maxPrice
-      );
-    }
+  const [minPrice, maxPrice] = priceRange
+    ? priceRange.split("-").map(Number)
+    : [0, Infinity];
 
-    // Filter by rating range
-    if (filtersState.rating) {
-      const minRating = filtersState.rating;
-      const maxRating = filtersState.rating + 0.9;
-      filteredProducts = filteredProducts.filter(
-        (product) => product.rating >= minRating && product.rating <= maxRating
-      );
-    }
-    setProducts(filteredProducts);
-  };
-
-  useEffect(() => {
-    applyFilters();
-  }, [filtersState]);
+  const {
+    data: { products = [], totalProducts = 0, totalPages = 0 } = {},
+    error,
+    isLoading: loading,
+  } = useFetchAllProductsQuery({
+    category: category !== "All" ? category : "",
+    minPrice,
+    maxPrice,
+    rating,
+    page: currentPage,
+    limit: ProductsPerPage,
+  });
 
   const clearFilters = () => {
     setFiltersState({
-      category: "all",
+      category: "All",
       priceRange: "",
       rating: 0,
     });
+    setCurrentPage(1);
   };
+
+  const hanldePageChange = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFiltersState(newFilters);
+    setCurrentPage(1);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading products...</div>;
+
+  const startProduct = (currentPage - 1) * ProductsPerPage + 1;
+  const endProduct = startProduct + products.length - 1;
 
   return (
     <>
@@ -107,16 +108,53 @@ const ShopPage = () => {
           <ShopFiltering
             filters={filters}
             filtersState={filtersState}
-            setFiltersState={setFiltersState}
+            setFiltersState={handleFilterChange}
             clearFilters={clearFilters}
           />
 
           {/* Products Display */}
           <div className="products w-full md:w-3/4">
             <h3 className="text-xl font-medium mb-4">
-              Products Available: {products.length}
+              Showing {startProduct} to {endProduct} of {totalProducts} products
             </h3>
-            <ProductCards products={products} />
+            {products.length === 0 ? (
+              <p>No products available in this category.</p>
+            ) : (
+              <ProductCards products={products} />
+            )}
+
+            {/* Pagination */}
+            <div className="mt-6 flex justify-center">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => hanldePageChange(currentPage - 1)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
+              >
+                Previous
+              </button>
+              {[
+                [...Array(totalPages)].map((_, index) => (
+                  <button
+                    onClick={() => hanldePageChange(index + 1)}
+                    className={`px-4 py-2 ${
+                      currentPage === index + 1
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-300 text-gray-700"
+                    } rounded-md mx-1`}
+                    key={index}
+                  >
+                    {index + 1}
+                  </button>
+                )),
+              ]}
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => hanldePageChange(currentPage + 1)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -125,41 +163,3 @@ const ShopPage = () => {
 };
 
 export default ShopPage;
-
-// const { min: minPrice = 0, max: maxPrice = Infinity } =
-//   selectedPriceRange || {};
-
-// const [currentPage, setCurrentPage] = useState(1);
-// const [ProductsPerPage, setProductsPerPage] = useState(8);
-
-// const { category, ratings, priceRange } = initialFilters;
-
-// const {
-//   data: { products = [], totalProducts, totalPages } = {},
-//   error,
-//   loading,
-// } = useFetchAllProductsQuery({
-//   category: category !== "all" ? category : "",
-//   minPrice,
-//   maxPrice,
-//   page: currentPage,
-//   limit: ProductsPerPage,
-// });
-
-// const filteredProducts = products.filter((product) => {
-//   const matchesCategory =
-//     selectedCategory === "All" || product.category === selectedCategory;
-
-//   const matchesPrice =
-//     !selectedPriceRange ||
-//     (product.price >= selectedPriceRange.min &&
-//       product.price <= selectedPriceRange.max);
-
-//   const matchesRating =
-//     !selectedRating || Math.floor(product.rating) === selectedRating;
-
-//   return matchesCategory && matchesPrice && matchesRating;
-// });
-
-// if (loading) return <div>Loading...</div>;
-// if (error) return <div>Error loading products...</div>;

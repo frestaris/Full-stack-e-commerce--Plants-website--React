@@ -51,7 +51,14 @@ router.post("/create-product", async (req, res) => {
 // GET ALL PRODUCTS
 router.get("/", async (req, res) => {
   try {
-    const { category, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
+    const {
+      category,
+      minPrice,
+      maxPrice,
+      rating,
+      page = 1,
+      limit = 10,
+    } = req.query;
 
     // Construct the filter object
     let filter = {};
@@ -66,6 +73,13 @@ router.get("/", async (req, res) => {
       if (!isNaN(min) && !isNaN(max)) {
         filter.price = { $gte: min, $lte: max };
       }
+    }
+
+    // Rating filter
+    if (rating) {
+      const minRating = parseFloat(rating);
+      const maxRating = minRating + 0.9;
+      filter.rating = { $gte: minRating, $lte: maxRating };
     }
 
     // Pagination setup

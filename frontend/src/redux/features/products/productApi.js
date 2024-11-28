@@ -15,6 +15,7 @@ const productsApi = createApi({
         category = "",
         minPrice = 0,
         maxPrice = "",
+        rating = "",
         page = 1,
         limit = 10,
       }) => {
@@ -22,10 +23,10 @@ const productsApi = createApi({
           ...(category && { category }),
           ...(minPrice && { minPrice: minPrice.toString() }),
           ...(maxPrice && { maxPrice: maxPrice.toString() }),
+          ...(rating && { rating: rating.toString() }),
           page: page.toString(),
           limit: limit.toString(),
         }).toString();
-
         return `/?${queryParams}`;
       },
       providesTags: ["Products"],
