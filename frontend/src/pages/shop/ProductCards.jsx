@@ -10,7 +10,7 @@ const ProductCards = ({ products }) => {
   const cart = useSelector((state) => state.cart);
 
   const handleAddToCart = (product) => {
-    const isExists = cart.products.find((item) => item.id === product.id);
+    const isExists = cart.products.find((item) => item._id === product._id);
 
     if (isExists) {
       toast.info("Item already in the cart");
@@ -25,7 +25,7 @@ const ProductCards = ({ products }) => {
       {products.map((product, index) => (
         <div key={index} className="product__card relative">
           <div className="relative">
-            <Link to={`/shop/${product.id}`}>
+            <Link to={`/shop/${product._id}`}>
               <img
                 src={product.image}
                 alt="product image"

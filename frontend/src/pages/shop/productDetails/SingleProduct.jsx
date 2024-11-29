@@ -1,15 +1,35 @@
 import { IoIosArrowForward } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import RatingStars from "../../../components/RatingStars";
-import products from "../../../data/products.json";
+import { useDispatch, useSelector } from "react-redux";
+import { useFetchProductByIdQuery } from "../../../redux/features/products/productApi";
+import { addToCart } from "../../../redux/features/cart/cartSlice";
+import { toast } from "react-toastify";
 
 const SingleProduct = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
+  const cart = useSelector((state) => state.cart);
 
-  if (!product) {
-    return <p>Product not found</p>;
-  }
+  const dispatch = useDispatch();
+
+  const { data, error, isLoading } = useFetchProductByIdQuery(id);
+
+  const singleProduct = data?.product || {};
+  const productReviews = data?.reviews || [];
+
+  const handleAddToCart = (product) => {
+    const isExists = cart.products.find((item) => item._id === product._id);
+
+    if (isExists) {
+      toast.info("Item already in the cart");
+    } else {
+      dispatch(addToCart(product));
+      toast.success("Item added to the cart");
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Product not found</p>;
 
   return (
     <>
@@ -31,7 +51,7 @@ const SingleProduct = () => {
             </Link>
             <IoIosArrowForward className="mx-2" />
           </span>
-          <span className="flex items-center">{id}</span>
+          <span className="flex items-center">{singleProduct.name}</span>
         </div>
       </section>
 
@@ -40,28 +60,38 @@ const SingleProduct = () => {
         <div className="flex flex-col items-center md:flex-row gap-8">
           <div className="md:w-1/2 w-full">
             <img
-              src={product.image}
-              alt={product.name}
+              src={singleProduct?.image}
+              alt={singleProduct?.name}
               className="rounded-md w-full h-auto"
             />
           </div>
           <div className="md:w-1/2 w-full">
-            <h3 className="text-2xl font-semibold mb-4">{product.name}</h3>
+            <h3 className="text-2xl font-semibold mb-4">
+              {singleProduct?.name}
+            </h3>
             <p className="text-xl text-primary mb-4">
-              ${product.price}{" "}
-              <s className="text-slate-500">${product.oldPrice}</s>
+              ${singleProduct?.price}{" "}
+              {singleProduct?.oldPrice && (
+                <s className="text-slate-500">${singleProduct?.oldPrice}</s>
+              )}{" "}
             </p>
-            <p className="text-gray-700 mb-4">{product.description}</p>
+            <p className="text-gray-700 mb-4">{singleProduct?.description}</p>
             <div>
               <p>
-                <strong>Category:</strong> {product.category}
+                <strong>Category:</strong> {singleProduct?.category}
               </p>
               <div className="flex items-center gap-1">
                 <strong>Rating:</strong>
-                <RatingStars rating={product.rating} />
+                <RatingStars rating={singleProduct?.rating} />
               </div>
             </div>
-            <button className="mt-6 px-6 py-3 bg-green-800 rounded-md text-white">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToCart(singleProduct);
+              }}
+              className="mt-6 px-6 py-3 bg-green-800 rounded-md text-white"
+            >
               Add to Cart
             </button>
           </div>
