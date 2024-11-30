@@ -3,17 +3,53 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { clearCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
+import { getBaseUrl } from "../../utils/baseUrl";
 
 const OrderSummary = () => {
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.auth);
+  const products = useSelector((store) => store.cart.products);
   const { tax, taxRate, totalPrice, grandTotal, selectedItems } = useSelector(
     (state) => state.cart
   );
 
   const handleClearCart = () => {
     dispatch(clearCart());
-    toast.error("Cart Emptied!");
+  };
+
+  // payment integration
+  const makePayment = async () => {
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PK);
+    console.log(stripe);
+    const body = { products: products, userId: user?._id };
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(
+      `${getBaseUrl()}api/orders/create-checkout-session`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
+    if (!response.ok) {
+      toast.error("Failed to initiate payment. Please try again.");
+      return;
+    }
+
+    const session = await response.json();
+    console.log("session:", session);
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    console.log("result", result);
+    if (result.error) {
+      console.log("Error", result.error);
+    }
   };
 
   return (
@@ -36,7 +72,14 @@ const OrderSummary = () => {
           >
             <span className="mr-2">Clear cart</span> <RiDeleteBin6Line />
           </button>
-          <button className="bg-green-800 px-3 py-1.5 text-white mt-2 rounded-md flex justify-between items-center mb-4">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              makePayment(e);
+              handleClearCart();
+            }}
+            className="bg-green-800 px-3 py-1.5 text-white mt-2 rounded-md flex justify-between items-center mb-4"
+          >
             <span className="mr-2">Checkout</span> <IoBagCheckOutline />
           </button>
         </div>

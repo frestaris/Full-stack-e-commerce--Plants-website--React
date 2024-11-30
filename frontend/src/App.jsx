@@ -27,6 +27,8 @@ function App() {
         <Route path="/shop/:id" element={<SingleProduct />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/success" element={<div>When payment is succeed</div>} />
+        <Route path="/cancel" element={<ShopPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
