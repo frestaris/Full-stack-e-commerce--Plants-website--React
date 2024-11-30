@@ -48,4 +48,37 @@ router.post("/post-review", async (req, res) => {
   }
 });
 
+// Total reviews count
+
+router.get("/total-reviews", async (req, res) => {
+  try {
+    const totalReviews = await Reviews.countDocuments({});
+    res.status(200).send({ totalReviews });
+  } catch (error) {
+    console.error("Error getting total reviews", error);
+    res.status(500).send({ message: "Failed to get review count" });
+  }
+});
+
+// Get reviews by userId
+
+router.get("/:userId", async (req, res) => {
+  const { id } = req.params;
+  if (!userId) {
+    return res.status(400).send({ message: "User ID is required" });
+  }
+  try {
+    const reviews = await Reviews.find({ userId: userId }).sort({
+      createdAt: -1,
+    });
+    if (reviews.length === 0) {
+      return res.status(404).send({ message: "No reviews found" });
+    }
+    res.status(200).send(reviews);
+  } catch (error) {
+    console.error("Error fetching reviews by user", error);
+    res.status(500).send({ message: "Failed to fetch reviews by user" });
+  }
+});
+
 export default router;
