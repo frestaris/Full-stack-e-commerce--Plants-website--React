@@ -34,8 +34,8 @@ const ReviewsCard = ({ productReviews }) => {
             <div>
               {reviews.map((review, index) => (
                 <div key={index} className="mt-4">
-                  <div className="flex justify-between items-start">
-                    <div className="flex gap-4 items-center">
+                  <div className="flex flex-wrap justify-between items-start">
+                    <div className="flex gap-4 items-center w-full sm:w-auto">
                       <img
                         className="size-10 rounded-full"
                         src={
@@ -48,24 +48,27 @@ const ReviewsCard = ({ productReviews }) => {
                         <p className="text-lg font-medium underline capitalize underline-offset-4 text-blue-400">
                           {review?.userId?.username}
                         </p>
+                        <p className="text-[12px] italic block sm:hidden">
+                          {moment(review?.updatedAt).fromNow()}
+                        </p>
                         <RatingStars rating={review?.rating} />
                       </div>
                     </div>
-                    <div className="flex flex-col justify-between items-end">
+                    <div className="flex-col justify-between items-end hidden sm:block">
                       <p className="text-[12px] italic">
                         {moment(review?.updatedAt).fromNow()}
                       </p>
                     </div>
                   </div>
-                  <div className="text-gray-600 mt-5 border p-8">
-                    <p className="md:w-4/5">{review?.comment}</p>
+                  <div className="text-gray-600 mt-5 border p-4">
+                    <p className="w-full">{review?.comment}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          <p>No reviews for this product!</p>
+          <p>No reviews for this product yet!</p>
         )}
       </div>
 
