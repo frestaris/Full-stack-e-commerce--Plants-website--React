@@ -3,6 +3,7 @@ import moment from "moment";
 import RatingStars from "../../../components/RatingStars";
 import { useState } from "react";
 import PostAReview from "./PostAReview";
+import { Link } from "react-router-dom";
 
 const ReviewsCard = ({ productReviews }) => {
   const { user } = useSelector((state) => state.auth);
@@ -10,7 +11,9 @@ const ReviewsCard = ({ productReviews }) => {
 
   const reviews = productReviews || [];
 
-  const userReview = reviews.find((review) => review?.userId?._id === user._id);
+  const userReview = user
+    ? reviews.find((review) => review?.userId?._id === user._id)
+    : null;
 
   const handleOpenReviewModal = () => {
     setIsModalOpen(true);
@@ -19,12 +22,15 @@ const ReviewsCard = ({ productReviews }) => {
   const handleCloseReviewModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div className="my-6 bg-white p-8">
       <div>
         {reviews.length > 0 ? (
           <div>
-            <h3 className="text-lg font-medium">All Reviews...</h3>
+            <h3 className="text-lg font-medium">
+              ({productReviews.length}) Reviews...
+            </h3>
             <div>
               {reviews.map((review, index) => (
                 <div key={index} className="mt-4">
@@ -33,7 +39,7 @@ const ReviewsCard = ({ productReviews }) => {
                       <img
                         className="size-10 rounded-full"
                         src={
-                          user.profileImage ||
+                          review?.userId?.profileImage ||
                           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                         }
                         alt="user picture"
@@ -64,14 +70,25 @@ const ReviewsCard = ({ productReviews }) => {
       </div>
 
       {/* Add review button */}
-      <div className="mt-12">
-        <button
-          onClick={handleOpenReviewModal}
-          className="px-6 py-3 bg-green-800 text-white rounded-md"
-        >
-          {userReview ? "Edit Review" : "Add a Review"}
-        </button>
-      </div>
+      {user ? (
+        <div className="mt-12">
+          <button
+            onClick={handleOpenReviewModal}
+            className="px-6 py-3 bg-green-800 text-white rounded-md"
+          >
+            {userReview ? "Edit Review" : "Add a Review"}
+          </button>
+        </div>
+      ) : (
+        <p className="my-5 italic text-md">
+          Please
+          <Link className="text-blue-700 underline px-1" to="/register">
+            Log in
+          </Link>
+          here to add a review
+        </p>
+      )}
+
       {/* Review modal */}
       <PostAReview
         isModalOpen={isModalOpen}

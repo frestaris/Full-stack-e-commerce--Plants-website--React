@@ -40,6 +40,11 @@ const PostAReview = ({ isModalOpen, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (rating === 0 || comment === "") {
+      toast.error("Please fill both fields before submitting!");
+      return;
+    }
+
     const newComment = {
       comment,
       rating,

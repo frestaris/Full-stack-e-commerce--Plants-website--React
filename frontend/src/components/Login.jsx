@@ -22,7 +22,6 @@ const Login = () => {
     };
     try {
       const response = await loginUser(data).unwrap();
-      console.log(response);
       const { token, user } = response;
       dispatch(setUser({ user }));
       toast.success("Login successful");
