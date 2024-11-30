@@ -10,14 +10,14 @@ export const reviewApi = createApi({
   tagTypes: ["Reviews"],
   endpoints: (builder) => ({
     // Post review
-    psotReview: builder.mutation({
+    postReview: builder.mutation({
       query: (reviewData) => ({
-        url: "/post-reviews",
+        url: "/post-review",
         method: "POST",
         body: reviewData,
         credentials: "include",
       }),
-      invalidatesTags: (result, erro, { postId }) => [
+      invalidatesTags: (result, error, { postId }) => [
         { type: "Reviews", id: postId },
       ],
     }),
@@ -41,7 +41,7 @@ export const reviewApi = createApi({
 });
 
 export const {
-  usePsotReviewMutation,
+  usePostReviewMutation,
   useGetReviewCountQuery,
   useGetReviewsByUserIdQuery,
 } = reviewApi;

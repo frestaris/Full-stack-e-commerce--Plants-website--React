@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFetchProductByIdQuery } from "../../../redux/features/products/productApi";
 import { addToCart } from "../../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
+import ReviewsCard from "../reviews/ReviewsCard";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -97,7 +98,9 @@ const SingleProduct = () => {
           </div>
         </div>
       </section>
-      <section className="section__container mt-8">Reviews here</section>
+      <section className="section__container mt-8">
+        <ReviewsCard productReviews={productReviews} />
+      </section>
     </>
   );
 };

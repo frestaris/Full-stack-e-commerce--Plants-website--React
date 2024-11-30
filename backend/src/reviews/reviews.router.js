@@ -15,8 +15,9 @@ router.post("/post-review", async (req, res) => {
     const existingReview = await Reviews.findOne({ productId, userId });
     if (existingReview) {
       // update review
-      existingReview.comment;
-      existingReview.rating;
+      existingReview.comment = comment;
+      existingReview.rating = rating;
+
       await existingReview.save();
     } else {
       // create new review
@@ -63,7 +64,7 @@ router.get("/total-reviews", async (req, res) => {
 // Get reviews by userId
 
 router.get("/:userId", async (req, res) => {
-  const { id } = req.params;
+  const { userId } = req.params;
   if (!userId) {
     return res.status(400).send({ message: "User ID is required" });
   }
