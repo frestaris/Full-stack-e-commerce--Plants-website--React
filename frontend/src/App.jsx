@@ -12,15 +12,16 @@ import { ToastContainer } from "react-toastify";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import PaymentSuccess from "./components/PaymentSuccess";
+import PrivateRoute from "./components/PrivateRoute";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
 
 function App() {
   return (
-    <BrowserRouter
-      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-    >
+    <BrowserRouter>
       <ToastContainer position="top-center" autoClose={2000} />
       <Navbar />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/categories/:categoryName" element={<CategoryPage />} />
         <Route path="/search" element={<Search />} />
@@ -30,6 +31,40 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/cancel" element={<ShopPage />} />
+
+        {/* User Dashboard */}
+        <Route
+          path="/dashboard/*"
+          element={
+            <PrivateRoute role="user">
+              <DashboardLayout title="User Dashboard" />
+            </PrivateRoute>
+          }
+        >
+          <Route path="orders" element={<div>Orders</div>} />
+          <Route path="payments" element={<div>Payments</div>} />
+          <Route path="profile" element={<div>Profile</div>} />
+          <Route path="reviews" element={<div>Reviews</div>} />
+        </Route>
+
+        {/* Admin Dashboard */}
+        <Route
+          path="/dashboard/admin/*"
+          element={
+            <PrivateRoute role="admin">
+              <DashboardLayout title="Admin Dashboard" />
+            </PrivateRoute>
+          }
+        >
+          <Route path="add-new-post" element={<div>New Post</div>} />
+          <Route path="manage-products" element={<div>Manage Products</div>} />
+          <Route
+            path="update-product/:id"
+            element={<div>Update Product</div>}
+          />
+          <Route path="users" element={<div>All Users</div>} />
+          <Route path="manage-orders" element={<div>Manage Orders</div>} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

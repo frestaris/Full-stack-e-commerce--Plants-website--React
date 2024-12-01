@@ -32,15 +32,15 @@ const Navbar = () => {
     },
     {
       label: "Manage Items",
-      path: "/dashboard/manage-products",
+      path: "/dashboard/admin/manage-products",
     },
     {
       label: "All Orders",
-      path: "/dashboard/manage-orders",
+      path: "/dashboard/admin/manage-orders",
     },
     {
       label: "Add New Post",
-      path: "/dashboard/add-new-post",
+      path: "/dashboard/admin/add-new-post",
     },
   ];
 
