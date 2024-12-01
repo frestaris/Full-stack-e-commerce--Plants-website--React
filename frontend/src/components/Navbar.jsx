@@ -26,42 +26,20 @@ const Navbar = () => {
 
   // admin dropdown menus
   const adminDropdownMenus = [
-    {
-      label: "Dashboard",
-      path: "/dashboard/admin",
-    },
-    {
-      label: "Manage Items",
-      path: "/dashboard/admin/manage-products",
-    },
-    {
-      label: "All Orders",
-      path: "/dashboard/admin/manage-orders",
-    },
-    {
-      label: "Add New Post",
-      path: "/dashboard/admin/add-new-post",
-    },
+    { path: "/dashboard/admin", label: "Dashboard" },
+    { path: "/dashboard/admin/add-new-post", label: "Add New Product" },
+    { path: "/dashboard/admin/manage-products", label: "Manage products" },
+    { path: "/dashboard/admin/manage-orders", label: "Manage Orders" },
+    { path: "/dashboard/admin/users", label: "Users" },
   ];
 
   // user dropdown menus
   const userDropdownMenus = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-    },
-    {
-      label: "Profile",
-      path: "/dashboard/profile",
-    },
-    {
-      label: "Payments",
-      path: "/dashboard/payments",
-    },
-    {
-      label: "Orders",
-      path: "/dashboard/orders",
-    },
+    { path: "/dashboard", label: "Dashboard" },
+    { path: "/dashboard/orders", label: "Orders" },
+    { path: "/dashboard/payments", label: "Payments" },
+    { path: "/dashboard/profile", label: "Profile" },
+    { path: "/dashboard/reviews", label: "Reviews" },
   ];
 
   const dropdownMenus =

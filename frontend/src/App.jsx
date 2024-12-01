@@ -17,7 +17,10 @@ import DashboardLayout from "./pages/dashboard/DashboardLayout";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
+      {" "}
       <ToastContainer position="top-center" autoClose={2000} />
       <Navbar />
       <Routes>
@@ -37,7 +40,7 @@ function App() {
           path="/dashboard/*"
           element={
             <PrivateRoute role="user">
-              <DashboardLayout title="User Dashboard" />
+              <DashboardLayout />
             </PrivateRoute>
           }
         >
@@ -52,11 +55,11 @@ function App() {
           path="/dashboard/admin/*"
           element={
             <PrivateRoute role="admin">
-              <DashboardLayout title="Admin Dashboard" />
+              <DashboardLayout />
             </PrivateRoute>
           }
         >
-          <Route path="add-new-post" element={<div>New Post</div>} />
+          <Route path="add-new-post" element={<div>New Product</div>} />
           <Route path="manage-products" element={<div>Manage Products</div>} />
           <Route
             path="update-product/:id"
