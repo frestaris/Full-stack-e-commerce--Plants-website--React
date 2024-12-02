@@ -14,6 +14,7 @@ import Register from "./components/Register";
 import PaymentSuccess from "./components/PaymentSuccess";
 import PrivateRoute from "./components/PrivateRoute";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
+import UserOrders from "./pages/dashboard/user/UserOrders";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="orders" element={<div>Orders</div>} />
+          <Route path="orders" element={<UserOrders />} />
           <Route path="payments" element={<div>Payments</div>} />
           <Route path="profile" element={<div>Profile</div>} />
           <Route path="reviews" element={<div>Reviews</div>} />
