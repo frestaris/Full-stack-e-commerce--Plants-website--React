@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useGetOrdersByEmailQuery } from "../../../../redux/features/orders/orderApi";
+import { useGetOrdersByEmailQuery } from "../../../redux/features/orders/orderApi";
 import { Link } from "react-router-dom";
 
 const UserOrdersMain = () => {
@@ -82,7 +82,9 @@ const UserOrdersMain = () => {
                               : order?.status === "pending"
                               ? "bg-red-100 text-red-700"
                               : order?.status === "processing"
-                              ? "bg-blue-100 text-blue-600"
+                              ? "bg-yellow-100 text-yellow-600"
+                              : order?.status === "shipped"
+                              ? "bg-blue-100 text-blue-700"
                               : "bg-indigo-100 text-indigo-600"
                           }`}
                         >
@@ -94,7 +96,7 @@ const UserOrdersMain = () => {
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <Link
-                          to={`/orders/${order?._id}`}
+                          to={`/orders/${order?.orderId}`}
                           className="underline hover:text-green-700"
                         >
                           View order

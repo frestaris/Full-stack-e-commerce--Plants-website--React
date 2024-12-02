@@ -33,6 +33,24 @@ const TimelineStep = ({
     }
   };
 
+  const getStatusColor = () => {
+    if (!isCompleted && !isCurrent) {
+      return "bg-gray-100 text-gray-500";
+    }
+    switch (step?.status) {
+      case "completed":
+        return "bg-green-100 text-green-700";
+      case "pending":
+        return "bg-red-100 text-red-700";
+      case "processing":
+        return "bg-yellow-100 text-yellow-600";
+      case "shipped":
+        return "bg-blue-100 text-blue-600";
+      default:
+        return "bg-indigo-100 text-indigo-600";
+    }
+  };
+
   return (
     <li className="relative mb-6 sm:mb-0 sm:pl-10">
       <div className="flex items-center">
@@ -44,7 +62,7 @@ const TimelineStep = ({
           />
         )}
         <div
-          className={`relative z-10 flex items-center justify-center w-12 h-12 ${iconBgColor} ${iconTextColor} rounded-full ring-0 ring-white shrink-0`}
+          className={` z-10 flex items-center justify-center w-12 h-12 ${getStatusColor()} ${iconTextColor} rounded-full ring-0 ring-white shrink-0`}
         >
           {renderIcon()}
         </div>

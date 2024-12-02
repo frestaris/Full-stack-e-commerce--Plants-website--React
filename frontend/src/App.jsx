@@ -15,6 +15,7 @@ import PaymentSuccess from "./components/PaymentSuccess";
 import PrivateRoute from "./components/PrivateRoute";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import UserOrders from "./pages/dashboard/user/UserOrders";
+import OrderDetails from "./pages/dashboard/user/OrderDetails";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/cancel" element={<ShopPage />} />
+        <Route path="/orders/:orderId" element={<OrderDetails />} />
 
         {/* User Dashboard */}
         <Route
