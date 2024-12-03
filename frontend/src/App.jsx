@@ -17,6 +17,7 @@ import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import UserOrders from "./pages/dashboard/user/UserOrders";
 import OrderDetails from "./pages/dashboard/user/OrderDetails";
 import UserPayments from "./pages/dashboard/user/dashboard/UserPayments";
+import UserReviews from "./pages/dashboard/user/dashboard/UserReviews";
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
           <Route path="orders" element={<UserOrders />} />
           <Route path="payments" element={<UserPayments />} />
           <Route path="profile" element={<div>Profile</div>} />
-          <Route path="reviews" element={<div>Reviews</div>} />
+          <Route path="reviews" element={<UserReviews />} />
         </Route>
 
         {/* Admin Dashboard */}
