@@ -56,7 +56,7 @@ const OrderSummary = () => {
     <div className="bg-green-200 mt-5 rounded text-base">
       <div className="px-6 py-4 space-y-5">
         <h2 className="text-xl text-text-dark">OrderSummary</h2>
-        <p className="text-text-dark mt-2">Selected Items {selectedItems}</p>
+        <p className="text-text-dark mt-2">Selected Items: {selectedItems}</p>
         <p>Total Price: ${totalPrice.toFixed(2)}</p>
         <p>
           Tax: ${tax.toFixed(2)} ({taxRate * 100}%)
