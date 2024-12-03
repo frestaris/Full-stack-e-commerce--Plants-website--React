@@ -16,6 +16,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import UserOrders from "./pages/dashboard/user/UserOrders";
 import OrderDetails from "./pages/dashboard/user/OrderDetails";
+import UserPayments from "./pages/dashboard/user/dashboard/UserPayments";
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
           }
         >
           <Route path="orders" element={<UserOrders />} />
-          <Route path="payments" element={<div>Payments</div>} />
+          <Route path="payments" element={<UserPayments />} />
           <Route path="profile" element={<div>Profile</div>} />
           <Route path="reviews" element={<div>Reviews</div>} />
         </Route>
