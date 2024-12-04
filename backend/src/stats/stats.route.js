@@ -74,14 +74,17 @@ router.get("/admin-stats", async (req, res) => {
       { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
 
-    // format monthly earnings
-    const monthlyEarnings = monthlyEarningsResult.map((entry) =>
-      Order({
-        month: entry._id.month,
-        year: entry._id.year,
-        earnings: entry.monthlyEarnings.toFixed(2),
-      })
-    );
+    const monthlyEarnings = Array.from({ length: 12 }, (_, index) => {
+      const monthData = monthlyEarningsResult.find(
+        (entry) => entry._id.month === index + 1
+      );
+      return {
+        month: index + 1,
+        year: monthData?._id.year || new Date().getFullYear(),
+        earnings: monthData ? monthData.monthlyEarnings : 0,
+      };
+    });
+
     return res.status(200).json({
       totalOrders,
       totalProducts,

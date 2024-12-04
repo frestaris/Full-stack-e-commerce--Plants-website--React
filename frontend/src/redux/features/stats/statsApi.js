@@ -10,19 +10,19 @@ export const statsApi = createApi({
   tagTypes: ["Stats"],
   endpoints: (builder) => ({
     // Get stats
-    getUserStats: builder.mutation({
+    getUserStats: builder.query({
       query: (email) => `/user-stats/${email}`,
       providesTags: ["Stats"],
     }),
 
     // Get admin stats
-    getAdminStats: builder.mutation({
+    getAdminStats: builder.query({
       query: () => `/admin-stats`,
       providesTags: ["Stats"],
     }),
   }),
 });
 
-export const { useGetUserStatsMutation, useGetAdminStatsMutation } = statsApi;
+export const { useGetUserStatsQuery, useGetAdminStatsQuery } = statsApi;
 
 export default statsApi;

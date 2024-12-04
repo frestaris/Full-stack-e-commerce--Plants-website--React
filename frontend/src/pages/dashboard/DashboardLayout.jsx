@@ -1,8 +1,9 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserDashboard from "./user/dashboard/UserDashboard";
-import AdminDashboard from "./AdminDashboard";
+import AdminDashboard from "./admin/AdminDashboard";
 import UserDashboardMain from "./user/dashboard/UserDashboardMain";
+import AdminDashboardMain from "./admin/dashboard/AdminDashboardMain";
 
 const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ const DashboardLayout = () => {
         {user.role === "admin" ? <AdminDashboard /> : <UserDashboard />}
       </header>
       <main className="p-8 bg-white w-full border mt-5">
-        {isAdminPath && <h2>Admin Dashboard</h2>}
+        {isAdminPath && <AdminDashboardMain />}
         {isUserPath && <UserDashboardMain />}
         <Outlet />
       </main>
