@@ -19,6 +19,7 @@ import OrderDetails from "./pages/dashboard/user/OrderDetails";
 import UserPayments from "./pages/dashboard/user/dashboard/UserPayments";
 import UserReviews from "./pages/dashboard/user/dashboard/UserReviews";
 import UserProfile from "./pages/dashboard/user/dashboard/UserProfile";
+import AddProduct from "./pages/dashboard/admin/addProduct/AddProduct";
 
 function App() {
   return (
@@ -65,7 +66,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="add-new-post" element={<div>New Product</div>} />
+          <Route path="add-product" element={<AddProduct />} />
           <Route path="manage-products" element={<div>Manage Products</div>} />
           <Route
             path="update-product/:id"

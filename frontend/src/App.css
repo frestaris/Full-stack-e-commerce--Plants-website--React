@@ -443,12 +443,6 @@ nav {
   color: var(--primary-color);
 }
 
-.instagram__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
 .footer__bar {
   padding: 1rem;
   text-align: center;
@@ -510,10 +504,6 @@ nav {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-
-  .footer__container {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
 
 @media (width < 600px) {
@@ -536,10 +526,8 @@ nav {
   .blog__grid {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  .instagram__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  .footer__container {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
