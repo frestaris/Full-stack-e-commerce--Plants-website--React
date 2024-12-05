@@ -8,6 +8,7 @@ import productRoutes from "./src/products/products.route.js";
 import reviewRoutes from "./src/reviews/reviews.router.js";
 import orderRoutes from "./src/orders/orders.route.js";
 import statsRoutes from "./src/stats/stats.route.js";
+import uploadImage from "./src/utils/uploadImage.js";
 
 dotenv.config();
 
@@ -33,8 +34,19 @@ app.use("/api/stats", statsRoutes);
 
 const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.post("/uploadImage", (req, res) => {
+  console.log("Received request to upload image");
+  console.log("Image data:", req.body.image?.slice(0, 100)); // Log the first 100 characters of the image data to avoid clutter
+
+  uploadImage(req.body.image)
+    .then((url) => {
+      console.log("Image uploaded successfully, URL:", url);
+      res.send(url);
+    })
+    .catch((err) => {
+      console.error("Error during image upload:", err);
+      res.status(500).send(err);
+    });
 });
 
 app.listen(port, () => {
