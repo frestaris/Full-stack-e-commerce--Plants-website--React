@@ -74,7 +74,7 @@ const ShopPage = () => {
     setCurrentPage(1);
   };
 
-  const hanldePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
@@ -127,7 +127,7 @@ const ShopPage = () => {
             <div className="mt-6 flex justify-center">
               <button
                 disabled={currentPage === 1}
-                onClick={() => hanldePageChange(currentPage - 1)}
+                onClick={() => handlePageChange(currentPage - 1)}
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
               >
                 Previous
@@ -135,7 +135,7 @@ const ShopPage = () => {
               {[
                 [...Array(totalPages)].map((_, index) => (
                   <button
-                    onClick={() => hanldePageChange(index + 1)}
+                    onClick={() => handlePageChange(index + 1)}
                     className={`px-4 py-2 ${
                       currentPage === index + 1
                         ? "bg-blue-500 text-white"
@@ -149,7 +149,7 @@ const ShopPage = () => {
               ]}
               <button
                 disabled={currentPage === totalPages}
-                onClick={() => hanldePageChange(currentPage + 1)}
+                onClick={() => handlePageChange(currentPage + 1)}
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
               >
                 Next

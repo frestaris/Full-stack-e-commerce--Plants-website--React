@@ -22,14 +22,10 @@ const UploadImage = ({ name, setImage }) => {
 
   // request to upload a file
   const UploadSingleImage = (base64) => {
-    console.log("Uploading image...");
-    console.log("Base64 string (first 100 chars):", base64.slice(0, 100)); // Avoid logging the full base64 string to reduce clutter
-
     setLoading(true);
     axios
       .post(`${getBaseUrl()}uploadImage`, { image: base64 })
       .then((res) => {
-        console.log("Image upload response:", res.data);
         const imageUrl = res.data;
         setUrl(imageUrl);
         alert("Image uploaded successfully!");
@@ -49,23 +45,18 @@ const UploadImage = ({ name, setImage }) => {
 
   const uploadImage = async (event) => {
     const files = event.target.files;
-    console.log("Files selected for upload:", files);
 
     if (files.length === 1) {
-      console.log("Processing single file...");
       const base64 = await convertBase64(files[0]);
-      console.log("Base64 conversion complete");
       UploadSingleImage(base64);
       return;
     }
 
-    console.log("Processing multiple files...");
     const base64s = [];
     for (let i = 0; i < files.length; i++) {
       const base = await convertBase64[files[i]];
       base64s.push(base);
     }
-    console.log("All files converted to base64");
   };
 
   return (
