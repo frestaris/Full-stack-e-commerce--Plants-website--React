@@ -123,9 +123,8 @@ router.get("/order/:orderId", async (req, res) => {
 });
 
 // Get all orders
-// verifyToken, verifyAdmin,
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, verifyAdmin, async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
     if (orders.length === 0) {
@@ -141,41 +140,45 @@ router.get("/", async (req, res) => {
 });
 
 // Update order status
-// verifyToken, verifyAdmin,
-router.patch("/update-order-status/:id", async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
-  if (!status) {
-    return res.status(400).send({ message: "Status is requuired" });
-  }
-  try {
-    const updatedOrder = await Order.findByIdAndUpdate(
-      id,
-      {
-        status,
-        updatedAt: new Date(),
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-
-    if (!updatedOrder) {
-      return res.status(404).send({ message: "Order not found" });
+router.patch(
+  "/update-order-status/:id",
+  verifyToken,
+  verifyAdmin,
+  async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    if (!status) {
+      return res.status(400).send({ message: "Status is requuired" });
     }
-    res.status(200).json({
-      message: "Order status updated successfully",
-      order: updatedOrder,
-    });
-  } catch (error) {
-    console.error("Error updating order status:", error);
+    try {
+      const updatedOrder = await Order.findByIdAndUpdate(
+        id,
+        {
+          status,
+          updatedAt: new Date(),
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
-    res.status(500).send({
-      message: "Failed to update order status",
-    });
+      if (!updatedOrder) {
+        return res.status(404).send({ message: "Order not found" });
+      }
+      res.status(200).json({
+        message: "Order status updated successfully",
+        order: updatedOrder,
+      });
+    } catch (error) {
+      console.error("Error updating order status:", error);
+
+      res.status(500).send({
+        message: "Failed to update order status",
+      });
+    }
   }
-});
+);
 
 // Delete order
 router.delete("/delete-order/:id", async (req, res) => {

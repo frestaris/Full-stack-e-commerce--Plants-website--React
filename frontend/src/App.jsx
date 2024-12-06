@@ -23,6 +23,7 @@ import AddProduct from "./pages/dashboard/admin/addProduct/AddProduct";
 import ManageProduct from "./pages/dashboard/admin/manageProducts/ManageProduct";
 import UpdateProduct from "./pages/dashboard/admin/manageProducts/UpdateProduct";
 import ManageUser from "./pages/dashboard/admin/users/ManageUser";
+import ManageOrders from "./pages/dashboard/admin/manageOrders/ManageOrders";
 
 function App() {
   return (
@@ -73,7 +74,7 @@ function App() {
           <Route path="manage-products" element={<ManageProduct />} />
           <Route path="update-product/:id" element={<UpdateProduct />} />
           <Route path="users" element={<ManageUser />} />
-          <Route path="manage-orders" element={<div>Manage Orders</div>} />
+          <Route path="manage-orders" element={<ManageOrders />} />
         </Route>
       </Routes>
       <Footer />

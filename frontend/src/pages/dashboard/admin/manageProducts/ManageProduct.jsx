@@ -85,9 +85,6 @@ const ManageProduct = () => {
                     Rating
                   </th>
                   <th className="px-6 bg-blue-50 text-blue-500 align-middle border border-solid border-blue-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Edit
-                  </th>
-                  <th className="px-6 bg-blue-50 text-blue-500 align-middle border border-solid border-blue-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                     Actions
                   </th>
                 </tr>
@@ -118,23 +115,23 @@ const ManageProduct = () => {
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <RatingStars rating={product?.rating} />
                       </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <Link
-                          to={`/dashboard/admin/update-product/${product._id}`}
-                          className="underline hover:text-green-700"
-                        >
-                          Edit
-                        </Link>
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <button
-                          className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
-                          onClick={() => {
-                            handleDeleteProduct(product._id);
-                          }}
-                        >
-                          Delete
-                        </button>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            to={`/dashboard/admin/update-product/${product._id}`}
+                            className="underline hover:text-green-700"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                            onClick={() => {
+                              handleDeleteProduct(product._id);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
