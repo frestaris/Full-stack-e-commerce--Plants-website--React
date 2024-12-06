@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUpdateOrderStatusMutation } from "../../../../redux/features/orders/orderApi";
 import { RxCross1 } from "react-icons/rx";
+import { toast } from "react-toastify";
 
 const UpdateOrderModal = ({ order, onClose, isOpen }) => {
   const [status, setStatus] = useState(order?.status || "pending");
@@ -9,11 +10,11 @@ const UpdateOrderModal = ({ order, onClose, isOpen }) => {
   const handleUpdateOrderStatus = async () => {
     try {
       await updateOrderStatus({ id: order?._id, status }).unwrap();
-      alert("Order status updated successfully!");
+      toast.success("Order status updated successfully!");
       onClose();
     } catch (error) {
       console.error("Failed to update order status", error);
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.", error);
     }
   };
 

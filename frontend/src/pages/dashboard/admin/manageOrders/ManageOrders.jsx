@@ -10,6 +10,7 @@ import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
 } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const ManageOrders = () => {
   const {
@@ -59,10 +60,10 @@ const ManageOrders = () => {
   const handleDeleteOrder = async (orderId) => {
     try {
       await deleteOrder(orderId).unwrap();
-      alert("Order deleted successfully!");
+      toast.success("Order deleted successfully!");
       refetch();
     } catch (error) {
-      console.error("Failed to delete order", error);
+      toast.error("Failed to delete order", error);
     }
   };
 
@@ -81,7 +82,12 @@ const ManageOrders = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
   if (error) return <div>Something went wrong! Please try again later.</div>;
 
   return (
@@ -90,7 +96,7 @@ const ManageOrders = () => {
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-blueGray-700">
+              <h3 className="font-semibold text-base text-blue-700">
                 Manage Orders
               </h3>
             </div>
@@ -124,13 +130,13 @@ const ManageOrders = () => {
             <tbody>
               {currentPageOrders.map((order) => (
                 <tr key={order._id} className="border-b border-gray-200">
-                  <th className="border-t-0 px-6 py-4 text-left text-blue-700">
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {order?.orderId || "N/A"}
                   </th>
-                  <td className="border-t-0 px-6 py-4">
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {order?.email || "N/A"}
                   </td>
-                  <td className="border-t-0 px-6 py-4">
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <span
                       className={`inline-block px-3 py-1 text-xs text-white rounded-full ${getStatusColor(
                         order?.status
@@ -139,7 +145,7 @@ const ManageOrders = () => {
                       {order?.status || "Unknown"}
                     </span>
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {moment(order?.updatedAt).format("D MMMM, YYYY") || "N/A"}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 items-center space-x-2">
@@ -182,14 +188,14 @@ const ManageOrders = () => {
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
-          <IoIosArrowDropleftCircle className="text-4xl" />
+          <IoIosArrowDropleftCircle className="text-4xl text-gray-400" />
         </button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             onClick={() => handlePageChange(index + 1)}
             className={`px-4 py-2 ${
               currentPage === index + 1
-                ? "bg-blue-500 text-white"
+                ? "bg-green-700 text-white"
                 : "bg-gray-300 text-gray-700"
             } rounded-full mx-1`}
             key={index}
@@ -201,7 +207,7 @@ const ManageOrders = () => {
           disabled={currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
         >
-          <IoIosArrowDroprightCircle className="text-4xl" />
+          <IoIosArrowDroprightCircle className="text-4xl text-gray-400" />
         </button>
       </div>
     </section>

@@ -2,6 +2,10 @@ import { useState } from "react";
 import ProductCards from "./ProductCards";
 import ShopFiltering from "../shop/ShopFiltering";
 import { useFetchAllProductsQuery } from "../../redux/features/products/productApi";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
 
 const filters = {
   categories: [
@@ -85,7 +89,12 @@ const ShopPage = () => {
     setCurrentPage(1);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
   if (error) return <div>Error loading products...</div>;
 
   const startProduct = (currentPage - 1) * ProductsPerPage + 1;
@@ -128,31 +137,27 @@ const ShopPage = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
               >
-                Previous
+                <IoIosArrowDropleftCircle className="text-4xl text-gray-400" />
               </button>
-              {[
-                [...Array(totalPages)].map((_, index) => (
-                  <button
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`px-4 py-2 ${
-                      currentPage === index + 1
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-300 text-gray-700"
-                    } rounded-md mx-1`}
-                    key={index}
-                  >
-                    {index + 1}
-                  </button>
-                )),
-              ]}
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`px-4 py-2 ${
+                    currentPage === index + 1
+                      ? "bg-green-700 text-white"
+                      : "bg-gray-300 text-gray-700"
+                  } rounded-full mx-1`}
+                  key={index}
+                >
+                  {index + 1}
+                </button>
+              ))}
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
               >
-                Next
+                <IoIosArrowDroprightCircle className="text-4xl text-gray-400" />
               </button>
             </div>
           </div>

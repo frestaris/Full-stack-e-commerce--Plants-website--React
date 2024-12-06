@@ -4,6 +4,7 @@ import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
 import UploadImage from "./UploadImage";
 import { useAddProductMutation } from "../../../../redux/features/products/productApi";
+import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
@@ -62,11 +63,12 @@ const AddProduct = () => {
     }
     try {
       await AddProduct({ ...product, image, author: user?._id }).unwrap();
-      alert("Product added successfully");
+      toast.success("Product added successfully");
       setProduct({ name: "", category: "", price: "", description: "" });
       setImage("");
       navigate("/shop");
     } catch (error) {
+      toast.error("Failed to add product!", error);
       console.log("Failed to submit product", error);
     }
   };

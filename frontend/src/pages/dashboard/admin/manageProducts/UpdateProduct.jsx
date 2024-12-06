@@ -8,6 +8,7 @@ import {
   useFetchProductByIdQuery,
   useUpdateProductMutation,
 } from "../../../../redux/features/products/productApi";
+import { toast } from "react-toastify";
 
 import { useParams } from "react-router-dom";
 
@@ -95,11 +96,11 @@ const UpdateProduct = () => {
     };
     try {
       await updateProduct({ id: id, ...updatedProduct }).unwrap();
-      alert("Product updated successfully");
+      toast.success("Product updated successfully");
       await refetch();
       navigate("/dashboard/admin/manage-products");
     } catch (error) {
-      console.error("Failed to update product"), error;
+      toast.error("Failed to update product"), error;
     }
   };
 

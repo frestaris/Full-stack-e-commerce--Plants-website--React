@@ -5,6 +5,11 @@ import {
 } from "../../../../redux/features/auth/authApi";
 import { CiEdit } from "react-icons/ci";
 import UpdateUserModal from "./UpdateUserModal";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
+import { toast } from "react-toastify";
 
 const ManageUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,10 +40,10 @@ const ManageUser = () => {
   const handleDeleteUser = async (id) => {
     try {
       const response = await deleteUser(id).unwrap();
-      alert("User deleted successfully!");
+      toast.success("User deleted successfully!");
       refetch();
     } catch (error) {
-      console.error("Failed to delete user", error);
+      toast.error("Failed to delete user", error);
     }
   };
 
@@ -52,11 +57,16 @@ const ManageUser = () => {
     setSelectedUser(null);
   };
 
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
+  if (error) return <div>Something went wrong! Please try again later.</div>;
+
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>Error loading users.</div>}
-
       <section className="w-full mb-12 xl:mb-0 px-4 mx-auto">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
           <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -143,31 +153,27 @@ const ManageUser = () => {
           <button
             disabled={currentPage === 1}
             onClick={() => handlePageChange(currentPage - 1)}
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
           >
-            Previous
+            <IoIosArrowDropleftCircle className="text-4xl text-gray-400" />
           </button>
-          {[
-            [...Array(totalPages)].map((_, index) => (
-              <button
-                onClick={() => handlePageChange(index + 1)}
-                className={`px-4 py-2 ${
-                  currentPage === index + 1
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-gray-700"
-                } rounded-md mx-1`}
-                key={index}
-              >
-                {index + 1}
-              </button>
-            )),
-          ]}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 ${
+                currentPage === index + 1
+                  ? "bg-green-700 text-white"
+                  : "bg-gray-300 text-gray-700"
+              } rounded-full mx-1`}
+              key={index}
+            >
+              {index + 1}
+            </button>
+          ))}
           <button
             disabled={currentPage === totalPages}
             onClick={() => handlePageChange(currentPage + 1)}
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
           >
-            Next
+            <IoIosArrowDroprightCircle className="text-4xl text-gray-400" />
           </button>
         </div>
       </section>

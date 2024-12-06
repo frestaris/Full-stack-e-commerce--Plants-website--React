@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUpdateUserRoleMutation } from "../../../../redux/features/auth/authApi";
 import { RxCross1 } from "react-icons/rx";
+import { toast } from "react-toastify";
 
 const UpdateUserModal = ({ user, onClose, onRoleUpdate }) => {
   const [role, setRole] = useState(user.role);
@@ -10,11 +11,11 @@ const UpdateUserModal = ({ user, onClose, onRoleUpdate }) => {
   const handleUpdateRole = async () => {
     try {
       await updateUserRole({ userId: user?._id, role }).unwrap();
-      alert("Updated role successfully!");
+      toast.success("Updated role successfully!");
       onRoleUpdate();
       onClose();
     } catch (error) {
-      console.error("Failed to udpate user role", error);
+      toast.error("Failed to udpate user role", error);
     }
   };
 

@@ -1,20 +1,52 @@
-import { useState } from "react";
-import productsData from "../../data/products.json";
+import { useEffect, useState } from "react";
 import ProductCards from "../shop/ProductCards";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productApi.js";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(productsData);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [initialProducts, setInitialProducts] = useState([]);
 
-  const handleSearch = () => {
-    const query = searchQuery.toLowerCase();
-    const filtered = productsData.filter(
-      (product) =>
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
+  const {
+    data: { products = [] } = {},
+    error,
+    isLoading,
+  } = useFetchAllProductsQuery({
+    category: "",
+    minPrice: "",
+    maxPrice: "",
+    rating: "",
+    limit: 8,
+  });
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setInitialProducts(products);
+      setFilteredProducts(products);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredProducts(initialProducts);
+    } else {
+      const query = searchQuery.toLowerCase();
+      const filtered = initialProducts.filter(
+        (product) =>
+          product.name.toLowerCase().includes(query) ||
+          product.description.toLowerCase().includes(query)
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [searchQuery, initialProducts]);
+
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
     );
-    setFilteredProducts(filtered);
-  };
+  if (error) return <div>No order found!</div>;
 
   return (
     <>
@@ -34,12 +66,6 @@ const Search = () => {
             placeholder="Search for products..."
             className="search-bar w-full max-w-4xl p-2 border rounded"
           />
-          <button
-            onClick={handleSearch}
-            className="search-button w-full md:w-auto py-2 px-8 bg-green-800 text-white rounded"
-          >
-            Search
-          </button>
         </div>
       </section>
       <div className="section__container">
