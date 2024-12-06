@@ -66,10 +66,12 @@ const Navbar = () => {
             <Link to="/shop">Shop</Link>
           </li>
           <li className="link">
-            <Link to="/pages">Pages</Link>
+            <Link to="/contact">Contact</Link>
           </li>
           <li className="link">
-            <Link to="/contact">Contact</Link>
+            <Link to="https://arisfresta-portfolio.netlify.app/">
+              Portfolio
+            </Link>
           </li>
         </ul>
         <div className="nav__logo">

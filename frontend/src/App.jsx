@@ -24,6 +24,7 @@ import ManageProduct from "./pages/dashboard/admin/manageProducts/ManageProduct"
 import UpdateProduct from "./pages/dashboard/admin/manageProducts/UpdateProduct";
 import ManageUser from "./pages/dashboard/admin/users/ManageUser";
 import ManageOrders from "./pages/dashboard/admin/manageOrders/ManageOrders";
+import Contact from "./pages/contact/Contact";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/categories/:categoryName" element={<CategoryPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/shop/:id" element={<SingleProduct />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

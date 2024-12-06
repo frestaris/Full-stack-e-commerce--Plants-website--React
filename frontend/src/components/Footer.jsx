@@ -16,14 +16,14 @@ const Footer = () => {
           <h4>CONTACT INFO</h4>
           <div className="flex flex-col space-y-4">
             <span className="flex items-center">
-              <FaMapMarkerAlt className="mr-2 text-green-800" /> 123, West Gate,
-              Heaven
+              <FaMapMarkerAlt className="mr-2 text-green-800" /> 123 Greenhouse
+              Lane, Plant City, FL 12345
             </span>
             <span className="flex items-center">
-              <MdEmail className="mr-2 text-green-800" /> support@email.com
+              <MdEmail className="mr-2 text-green-800" /> support@plantstore.com
             </span>
             <span className="flex items-center">
-              <FaPhoneAlt className="mr-2 text-green-800" /> (+05)123 456 789
+              <FaPhoneAlt className="mr-2 text-green-800" /> +1 (234) 567-890
             </span>
           </div>
         </div>
