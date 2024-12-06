@@ -7,8 +7,13 @@ const OrderDetails = () => {
 
   const { data: order, error, isLoading } = useGetOrderByIdQuery(orderId);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>No order found!</div>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
+  if (error) return <div>Something went wrong! Please try again later.</div>;
 
   const isCompleted = (status) => {
     const statuses = ["pending", "processing", "shipped", "completed"];

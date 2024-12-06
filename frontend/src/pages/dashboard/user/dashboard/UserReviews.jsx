@@ -12,8 +12,13 @@ const UserReviews = () => {
   } = useGetReviewsByUserIdQuery(user?._id);
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error || !reviews?.length) return <div>No reviews found!</div>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
+  if (error) return <div>Something went wrong! Please try again later.</div>;
 
   const handleCardClick = (productId) => {
     navigate(`/shop/${productId}`);

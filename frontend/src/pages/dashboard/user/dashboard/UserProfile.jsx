@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { RiCloseFill } from "react-icons/ri";
 import { setUser } from "../../../../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [editProfile, { isLoading, isError, error, isSuccess }] =
-    useEditProfileMutation();
+  const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const [formData, setFormData] = useState({
     username: user?.username || "",
@@ -46,14 +46,13 @@ const UserProfile = () => {
     try {
       console.log("Update Payload:", updateUser);
       const response = await editProfile(updateUser).unwrap();
-      console.log("API Response:", response);
       dispatch(setUser(response.user));
       localStorage.setItem("user", JSON.stringify(response.user));
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
       setIsModalOpen(false);
     } catch (error) {
       console.error("API Error:", error);
-      alert("Failed to update profile. Please try again!");
+      toast.error("Failed to update profile. Please try again!");
     }
   };
 

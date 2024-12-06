@@ -11,8 +11,13 @@ const UserOrdersMain = () => {
   } = useGetOrdersByEmailQuery(user?.email);
   const orders = orderdata?.orders;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>No order found!</div>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
+  if (error) return <div>Something went wrong! Please try again later.</div>;
 
   return (
     <section className="w-full mb-12 xl:mb-0 px-4 mx-auto">
