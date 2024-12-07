@@ -73,7 +73,10 @@ router.get("/:userId", async (req, res) => {
       createdAt: -1,
     });
     if (reviews.length === 0) {
-      return res.status(404).send({ message: "No reviews found" });
+      return res.status(200).send({
+        message: "You have no reviews yet.",
+        reviews: [],
+      });
     }
     res.status(200).send(reviews);
   } catch (error) {

@@ -75,8 +75,7 @@ router.post("/confirm-payment", async (req, res) => {
   }
 });
 
-// Get order by email address
-
+// Get orders by email address
 router.get("/:email", async (req, res) => {
   const email = req.params.email;
   if (!email) {
@@ -88,14 +87,15 @@ router.get("/:email", async (req, res) => {
     const orders = await Order.find({ email: email });
 
     if (orders.length === 0) {
-      return res
-        .status(400)
-        .send({ orders: 0, message: "No orders found for this email" });
+      return res.status(200).send({
+        message: "You have no orders yet.",
+        orders: [],
+      });
     }
     res.status(200).send({ orders });
   } catch (error) {
     console.error("Error fetching orders by email", error);
-    res.status(500).send({ message: "Failed to fecth orders by email" });
+    res.status(500).send({ message: "Failed to fetch orders by email" });
   }
 });
 

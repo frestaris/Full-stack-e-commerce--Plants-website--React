@@ -18,8 +18,17 @@ const UserReviews = () => {
         <div className="loader"></div>
       </div>
     );
+
   if (error) return <div>Something went wrong! Please try again later.</div>;
 
+  const reviewList = Array.isArray(reviews) ? reviews : [];
+
+  if (reviewList.length === 0)
+    return (
+      <div className="py-6">
+        <div>No reviews available yet.</div>
+      </div>
+    );
   const handleCardClick = (productId) => {
     navigate(`/shop/${productId}`);
   };

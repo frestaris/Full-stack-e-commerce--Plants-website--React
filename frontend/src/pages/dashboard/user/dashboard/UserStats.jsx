@@ -14,7 +14,7 @@ const UserStats = ({ stats }) => {
             <p className="text-2xl font-bold">{stats?.totalReviews}</p>
           </div>
         </Link>
-        <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:scale-105 transition-all duration-200 min-h-[100px] flex flex-col justify-between">
+        <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 min-h-[100px] flex flex-col justify-between">
           <h2 className="text-xl font-semibold mb-2">Total Products</h2>
           <p className="text-2xl font-bold">{stats?.totalPurchasedProducts}</p>
         </div>
