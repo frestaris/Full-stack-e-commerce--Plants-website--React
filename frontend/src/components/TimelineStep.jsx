@@ -9,10 +9,16 @@ const TimelineStep = ({
   icon,
   description,
 }) => {
+  // Define background and text color logic
   const iconBgColor =
     isCompleted || isCurrent ? `bg-${icon.bgColor}` : "bg-gray-100";
+
+  // Adjust icon color based on the background color
   const iconTextColor =
-    isCompleted || isCurrent ? "text-white" : `text-${icon.textColor}`;
+    isCompleted || isCurrent
+      ? `text-${isCurrent ? "gray-800" : icon.textColor}` // Active step gets dark color
+      : `text-${icon.textColor || "gray-500"}`; // Default color for inactive step
+
   const labelTextColor =
     isCompleted || isCurrent ? "text-gray-900" : "text-gray-500";
   const descriptionTextColor =
@@ -21,13 +27,13 @@ const TimelineStep = ({
   const renderIcon = () => {
     switch (step.icon.iconName) {
       case "time-line":
-        return <FaRegClock />;
+        return <FaRegClock className={iconTextColor} />;
       case "loader-line":
-        return <FaCog />;
+        return <FaCog className={iconTextColor} />;
       case "truck-line":
-        return <FaTruck />;
+        return <FaTruck className={iconTextColor} />;
       case "check-line":
-        return <FaCheckCircle />;
+        return <FaCheckCircle className={iconTextColor} />;
       default:
         return null;
     }
@@ -62,7 +68,7 @@ const TimelineStep = ({
           />
         )}
         <div
-          className={` z-10 flex items-center justify-center w-12 h-12 ${getStatusColor()} ${iconTextColor} rounded-full ring-0 ring-white shrink-0`}
+          className={`z-10 flex items-center justify-center w-12 h-12 ${getStatusColor()} ${iconTextColor} rounded-full ring-0 ring-white shrink-0`}
         >
           {renderIcon()}
         </div>

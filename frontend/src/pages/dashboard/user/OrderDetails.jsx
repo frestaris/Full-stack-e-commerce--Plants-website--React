@@ -65,9 +65,16 @@ const OrderDetails = () => {
 
   return (
     <section className="section__container rounded p-6">
-      <h2 className="text-2xl font-semibold mb-4">Payment {order?.status}</h2>
-      <p className="mb-4">Order id: {order?.orderId}</p>
-      <p className="mb-8">Status: {order?.status}</p>
+      <h2 className="text-2xl mb-4">
+        Payment Status: <strong>{order.status}</strong>
+      </h2>
+      <p className="mb-4">Order ID: {order.orderId}</p>
+      <p className="mb-4">
+        Items: <strong>{order.products.length}</strong>
+      </p>
+      <p className="mb-8">
+        Total amount: <strong>${order.amount}</strong>
+      </p>
       <ol className="sm:flex items-center relative">
         {steps.map((step, index) => (
           <TimelineStep

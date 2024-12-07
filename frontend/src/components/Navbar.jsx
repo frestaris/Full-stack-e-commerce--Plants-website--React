@@ -68,11 +68,6 @@ const Navbar = () => {
           <li className="link">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="link">
-            <Link to="https://arisfresta-portfolio.netlify.app/">
-              Portfolio
-            </Link>
-          </li>
         </ul>
         <div className="nav__logo">
           <Link to="/">

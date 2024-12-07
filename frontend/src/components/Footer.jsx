@@ -78,7 +78,14 @@ const Footer = () => {
         </div>
       </footer>
       <div className="footer__bar">
-        Copyright © {new Date().getFullYear()}. All rights reserved.
+        Copyright ©{" "}
+        <a
+          className="underline text-blue-500"
+          href="https://arisfresta-portfolio.netlify.app/"
+        >
+          Aris Fresta
+        </a>{" "}
+        {new Date().getFullYear()}. All rights reserved.{" "}
       </div>
     </>
   );
