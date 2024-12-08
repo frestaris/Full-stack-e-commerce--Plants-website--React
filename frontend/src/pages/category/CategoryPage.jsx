@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import products from "../../data/products.json";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productApi";
 import ProductCards from "../shop/ProductCards";
-
-const normalizeCategory = (category) =>
-  category.toLowerCase().replace(/\s+/g, "-");
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  useEffect(() => {
-    const filtered = products.filter(
-      (product) => normalizeCategory(product.category) === categoryName
-    );
-    setFilteredProducts(filtered);
-  }, [categoryName]);
+  const { data, isLoading, error } = useFetchAllProductsQuery({
+    category: categoryName,
+    limit: 100,
+  });
+
+  const filteredProducts =
+    data?.products?.filter((product) => product.category === categoryName) ||
+    [];
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
+
+  if (isLoading) return <div>Loading products...</div>;
+  if (error) return <div>Error loading products...</div>;
 
   return (
     <>

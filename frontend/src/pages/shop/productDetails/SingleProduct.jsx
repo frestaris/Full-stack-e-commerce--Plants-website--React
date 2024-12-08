@@ -73,7 +73,9 @@ const SingleProduct = () => {
             <p className="text-xl text-primary mb-4">
               ${singleProduct?.price}{" "}
               {singleProduct?.oldPrice && (
-                <s className="text-slate-500">${singleProduct?.oldPrice}</s>
+                <s className="text-slate-500">
+                  ${singleProduct?.oldPrice.toFixed(2)}
+                </s>
               )}{" "}
             </p>
             <p className="text-gray-700 mb-4">{singleProduct?.description}</p>
@@ -81,9 +83,13 @@ const SingleProduct = () => {
               <p>
                 <strong>Category:</strong> {singleProduct?.category}
               </p>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 mt-3">
                 <strong>Rating:</strong>
-                <RatingStars rating={singleProduct?.rating} />
+                {singleProduct.rating > 0 ? (
+                  <RatingStars rating={singleProduct?.rating} />
+                ) : (
+                  <p className="text-gray-500">No rating yet!</p>
+                )}
               </div>
             </div>
             <button

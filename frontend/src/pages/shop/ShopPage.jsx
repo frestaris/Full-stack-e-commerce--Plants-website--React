@@ -10,10 +10,10 @@ import {
 const filters = {
   categories: [
     "All",
-    "Indoor Plants",
-    "Outdoor Plants",
-    "Succulents & Cacti",
-    "Plant Accessories",
+    "indoor plants",
+    "outdoor plants",
+    "succulents & cacti",
+    "plant accessories",
   ],
   ratings: [1, 2, 3, 4, 5],
   price: [

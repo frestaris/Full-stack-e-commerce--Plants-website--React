@@ -28,7 +28,7 @@ const UploadImage = ({ name, setImage }) => {
       .then((res) => {
         const imageUrl = res.data;
         setUrl(imageUrl);
-        alert("Image uploaded successfully!");
+        // alert("Image uploaded successfully!");
         setImage(imageUrl);
       })
       .catch((error) => {
@@ -39,7 +39,6 @@ const UploadImage = ({ name, setImage }) => {
       })
       .finally(() => {
         setLoading(false);
-        console.log("Upload process finished");
       });
   };
 
