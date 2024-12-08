@@ -16,7 +16,7 @@ const Search = () => {
     minPrice: "",
     maxPrice: "",
     rating: "",
-    limit: 8,
+    limit: 50,
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Search = () => {
         <div className="loader"></div>
       </div>
     );
-  if (error) return <div>No order found!</div>;
+  if (error) return <div>No product found!</div>;
 
   return (
     <>
@@ -69,7 +69,11 @@ const Search = () => {
         </div>
       </section>
       <div className="section__container">
-        <ProductCards products={filteredProducts} />
+        {searchQuery && filteredProducts.length === 0 ? (
+          <div>No product found!</div>
+        ) : (
+          <ProductCards products={filteredProducts} />
+        )}
       </div>
     </>
   );
