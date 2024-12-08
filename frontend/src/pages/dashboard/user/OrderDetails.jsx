@@ -65,16 +65,50 @@ const OrderDetails = () => {
 
   return (
     <section className="section__container rounded p-6">
-      <h2 className="text-2xl mb-4">
-        Payment Status: <strong>{order.status}</strong>
+      <h2 className="text-2xl font-semibold mb-4">
+        Payment Status: {order?.status}
       </h2>
-      <p className="mb-4">Order ID: {order.orderId}</p>
-      <p className="mb-4">
-        Items: <strong>{order.products.length}</strong>
-      </p>
-      <p className="mb-8">
-        Total amount: <strong>${order.amount}</strong>
-      </p>
+      <p className="mb-4">Order id: {order?.orderId}</p>
+      {/* Product Details */}
+      <div className="mb-6">
+        {order?.products && order.products.length > 0 && (
+          <div>
+            {order.products.map((product) => (
+              <div
+                key={product.productId}
+                className="flex items-center justify-between p-4 border-b border-gray-200"
+              >
+                <div className="flex items-center">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-12 h-12 object-cover mr-4"
+                  />
+                  <div className="flex flex-col">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Qty:{" "}
+                      <span className="font-medium">{product.quantity}</span>
+                    </p>
+                  </div>
+                </div>
+                <p className="font-bold text-lg">${product.price}</p>
+              </div>
+            ))}
+
+            {/* Total Amount */}
+            <div className="total-amount mt-4 p-4 flex justify-between items-center border-t border-gray-200">
+              <span className="text-lg font-semibold">Total:</span>
+              <span className="font-bold text-xl text-blue-800">
+                ${order.amount}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
       <ol className="sm:flex items-center relative">
         {steps.map((step, index) => (
           <TimelineStep

@@ -21,8 +21,18 @@ const OrderSummary = () => {
   // payment integration
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PK);
-    console.log(stripe);
-    const body = { products: products, userId: user?._id };
+
+    const body = {
+      products: products.map((product) => ({
+        productId: product.id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        quantity: product.quantity,
+      })),
+      userId: user?._id,
+      email: user?.email,
+    };
 
     const headers = {
       "Content-Type": "application/json",

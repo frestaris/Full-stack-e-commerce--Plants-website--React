@@ -9,7 +9,6 @@ const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Create checkout session
-
 router.post("/create-checkout-session", async (req, res) => {
   const { products } = req.body;
   try {
@@ -39,21 +38,26 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 // Confirm payment
-
 router.post("/confirm-payment", async (req, res) => {
   const { session_id } = req.body;
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ["line_items", "payment_intent"],
+      expand: ["line_items.data.price.product", "payment_intent"],
     });
     const paymentIntentId = session.payment_intent.id;
 
     let order = await Order.findOne({ orderId: paymentIntentId });
     if (!order) {
-      const lineItems = session.line_items.data.map((item) => ({
-        productId: item.price.product,
-        quantity: item.quantity,
-      }));
+      const lineItems = session.line_items.data.map((item) => {
+        const product = item.price.product;
+        return {
+          productId: product.id,
+          name: product.name,
+          image: product.images?.[0] || "https://via.placeholder.com/150", // First image or fallback
+          quantity: item.quantity,
+          price: item.price.unit_amount / 100,
+        };
+      });
       const amount = session.amount_total / 100;
       order = new Order({
         orderId: paymentIntentId,
@@ -75,32 +79,7 @@ router.post("/confirm-payment", async (req, res) => {
   }
 });
 
-// Get orders by email address
-router.get("/:email", async (req, res) => {
-  const email = req.params.email;
-  if (!email) {
-    return res.status(400).send({
-      message: "Email is required",
-    });
-  }
-  try {
-    const orders = await Order.find({ email: email });
-
-    if (orders.length === 0) {
-      return res.status(200).send({
-        message: "You have no orders yet.",
-        orders: [],
-      });
-    }
-    res.status(200).send({ orders });
-  } catch (error) {
-    console.error("Error fetching orders by email", error);
-    res.status(500).send({ message: "Failed to fetch orders by email" });
-  }
-});
-
 // Get orders by Id
-
 router.get("/order/:orderId", async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -122,8 +101,30 @@ router.get("/order/:orderId", async (req, res) => {
   }
 });
 
-// Get all orders
+// Get order by email address
+router.get("/:email", async (req, res) => {
+  const email = req.params.email;
+  if (!email) {
+    return res.status(400).send({
+      message: "Email is required",
+    });
+  }
+  try {
+    const orders = await Order.find({ email: email });
 
+    if (orders.length === 0) {
+      return res
+        .status(400)
+        .send({ orders: 0, message: "No orders found for this email" });
+    }
+    res.status(200).send({ orders });
+  } catch (error) {
+    console.error("Error fetching orders by email", error);
+    res.status(500).send({ message: "Failed to fecth orders by email" });
+  }
+});
+
+// Get all orders
 router.get("/", verifyToken, verifyAdmin, async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
