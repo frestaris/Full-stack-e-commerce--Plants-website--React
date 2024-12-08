@@ -110,11 +110,47 @@ const PaymentSuccess = () => {
               </div>
             ))}
 
-            {/* Total Amount */}
-            <div className="total-amount mt-4 p-4 flex justify-between items-center border-t border-gray-200">
-              <span className="text-lg font-semibold">Total:</span>
-              <span className="font-bold text-xl text-blue-800">
-                ${order.amount}
+            {/* Subtotal and GST in the same div */}
+            <div className="subtotal-gst mt-4 p-4 flex justify-between items-start border-t border-gray-200 rounded-lg">
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-gray-700">
+                  Subtotal:
+                </span>
+                <span className="text-sm text-gray-500">GST (5%):</span>
+              </div>
+
+              <div className="flex flex-col items-end">
+                <span className="font-bold text-xl text-blue-800">
+                  $
+                  {order.products
+                    .reduce(
+                      (total, product) =>
+                        total + product.price * product.quantity,
+                      0
+                    )
+                    .toFixed(2)}
+                </span>
+                <span className="font-medium text-blue-800">
+                  ${order.tax.toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            {/* Total Amount with Tax */}
+            <div className="total-amount-with-tax mt-2 p-4 flex justify-between items-center bg-gray-50 border-t border-gray-200 rounded-lg">
+              <span className="text-lg font-semibold text-gray-700">
+                Total:
+              </span>
+              <span className="font-bold text-xl text-blue-900">
+                $
+                {(
+                  order.tax +
+                  order.products.reduce(
+                    (total, product) =>
+                      total + product.price * product.quantity,
+                    0
+                  )
+                ).toFixed(2)}
               </span>
             </div>
           </div>

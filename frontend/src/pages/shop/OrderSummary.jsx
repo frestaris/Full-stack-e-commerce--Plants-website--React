@@ -29,6 +29,7 @@ const OrderSummary = () => {
         image: product.image,
         price: product.price,
         quantity: product.quantity,
+        tax: taxRate,
       })),
       userId: user?._id,
       email: user?.email,
@@ -69,7 +70,7 @@ const OrderSummary = () => {
         <p className="text-text-dark mt-2">Selected Items: {selectedItems}</p>
         <p>Total Price: ${totalPrice.toFixed(2)}</p>
         <p>
-          Tax: ${tax.toFixed(2)} ({taxRate * 100}%)
+          GST: ${tax.toFixed(2)} ({taxRate * 100}%)
         </p>
         <h3 className="font-bold">Grand Total: ${grandTotal.toFixed(2)}</h3>
         <div className=" mb-6">

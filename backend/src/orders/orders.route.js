@@ -11,7 +11,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Create checkout session
 router.post("/create-checkout-session", async (req, res) => {
   const { products } = req.body;
+  const taxRate = 0.05;
+
   try {
+    const totalPrice = products.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
+
+    const tax = totalPrice * taxRate;
+    const amount = totalPrice + tax;
+
     const lineItems = products.map((product) => ({
       price_data: {
         currency: "AUD",
@@ -29,6 +39,10 @@ router.post("/create-checkout-session", async (req, res) => {
       mode: "payment",
       success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:5173/cancel`,
+      metadata: {
+        tax: tax,
+        amount: amount,
+      },
     });
     res.json({ id: session.id });
   } catch (error) {
@@ -53,17 +67,21 @@ router.post("/confirm-payment", async (req, res) => {
         return {
           productId: product.id,
           name: product.name,
-          image: product.images?.[0] || "https://via.placeholder.com/150", // First image or fallback
+          image: product.images?.[0],
           quantity: item.quantity,
           price: item.price.unit_amount / 100,
         };
       });
-      const amount = session.amount_total / 100;
+
+      const tax = session.metadata.tax;
+      const amount = session.metadata.amount;
+
       order = new Order({
         orderId: paymentIntentId,
-        amount,
+        amount: amount,
         products: lineItems,
         email: session.customer_details.email,
+        tax: tax,
         status:
           session.payment_intent.status === "succeeded" ? "pending" : "failed",
       });

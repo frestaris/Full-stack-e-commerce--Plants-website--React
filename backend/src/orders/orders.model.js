@@ -19,6 +19,10 @@ const OrderSchema = new mongoose.Schema(
       enum: ["pending", "processing", "shipped", "completed"],
       default: "pending",
     },
+    tax: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
