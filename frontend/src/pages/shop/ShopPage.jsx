@@ -133,26 +133,67 @@ const ShopPage = () => {
             )}
 
             {/* Pagination */}
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 flex justify-center items-center">
+              {/* Previous Page Button */}
               <button
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
                 <IoIosArrowDropleftCircle className="text-4xl text-gray-400" />
               </button>
-              {Array.from({ length: totalPages }, (_, index) => (
+
+              {/* First Page + Ellipsis */}
+              <button
+                onClick={() => handlePageChange(1)}
+                className={`px-4 py-2 ${
+                  currentPage === 1
+                    ? "bg-green-700 text-white"
+                    : "bg-gray-300 text-gray-700"
+                } rounded-full mx-1`}
+              >
+                1
+              </button>
+              {currentPage > 3 && <span className="px-2">...</span>}
+
+              {/* Middle Pages */}
+              {Array.from({ length: 3 }, (_, index) => {
+                const page = currentPage - 1 + index;
+                if (page > 1 && page < totalPages) {
+                  return (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-4 py-2 ${
+                        currentPage === page
+                          ? "bg-green-700 text-white"
+                          : "bg-gray-300 text-gray-700"
+                      } rounded-full mx-1`}
+                    >
+                      {page}
+                    </button>
+                  );
+                }
+                return null;
+              })}
+
+              {/* Last Page + Ellipsis */}
+              {currentPage < totalPages - 2 && (
+                <span className="px-2">...</span>
+              )}
+              {totalPages > 1 && (
                 <button
-                  onClick={() => handlePageChange(index + 1)}
+                  onClick={() => handlePageChange(totalPages)}
                   className={`px-4 py-2 ${
-                    currentPage === index + 1
+                    currentPage === totalPages
                       ? "bg-green-700 text-white"
                       : "bg-gray-300 text-gray-700"
                   } rounded-full mx-1`}
-                  key={index}
                 >
-                  {index + 1}
+                  {totalPages}
                 </button>
-              ))}
+              )}
+
+              {/* Next Page Button */}
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}

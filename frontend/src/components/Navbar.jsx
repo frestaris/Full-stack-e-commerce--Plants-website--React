@@ -9,6 +9,8 @@ import { logout } from "../redux/features/auth/authSlice";
 const Navbar = () => {
   const products = useSelector((state) => state.cart.products);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,9 +21,11 @@ const Navbar = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   // admin dropdown menus
@@ -70,13 +74,30 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="nav__logo">
-          <Link to="/">
-            <img
-              className=""
-              src="https://static.vecteezy.com/system/resources/thumbnails/012/578/976/small/leaf-and-pot-icon-potted-plant-icon-trendy-design-leaf-on-pot-icon-garden-logo-illustration-vector.jpg"
-              alt="logo image"
-            />
-          </Link>
+          <img
+            onClick={handleMenuToggle}
+            src="https://static.vecteezy.com/system/resources/thumbnails/012/578/976/small/leaf-and-pot-icon-potted-plant-icon-trendy-design-leaf-on-pot-icon-garden-logo-illustration-vector.jpg"
+            alt="logo image"
+          />
+          {isMenuOpen && (
+            <ul className="nav-content">
+              <li className="link">
+                <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                  Home
+                </Link>
+              </li>
+              <li className="link">
+                <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
+                  Shop
+                </Link>
+              </li>
+              <li className="link">
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
 
         <div className="nav__icons relative">

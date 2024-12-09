@@ -127,6 +127,46 @@ nav {
   justify-content: space-between;
 }
 
+.nav-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 250px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px 0;
+  list-style: none;
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 9999;
+}
+
+.nav-content,
+.nav__logo .nav-content.open {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-content .link {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-content .link:hover {
+  background-color: #f1f1f1;
+  color: #4caf50;
+}
+
 .nav__links {
   flex: 1;
   list-style: none;
@@ -501,6 +541,14 @@ nav {
 @media (width < 900px) {
   .nav__links {
     display: none;
+  }
+  .nav__logo {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .nav__logo .nav-content {
+    display: block;
   }
 
   .header__container {
