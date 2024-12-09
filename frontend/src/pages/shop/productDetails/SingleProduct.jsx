@@ -29,7 +29,12 @@ const SingleProduct = () => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
   if (error) return <p>Product not found</p>;
 
   return (

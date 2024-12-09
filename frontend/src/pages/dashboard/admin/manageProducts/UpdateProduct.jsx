@@ -104,7 +104,13 @@ const UpdateProduct = () => {
     }
   };
 
-  if (isProductLoading) return <div>Loading...</div>;
+  if (isProductLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
+
   if (fetchError) return <div>Error fetching product!...</div>;
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchAllProductsQuery } from "../../redux/features/products/productApi";
 import ProductCards from "../shop/ProductCards";
@@ -19,7 +19,12 @@ const CategoryPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) return <div>Loading products...</div>;
+  if (isLoading)
+    return (
+      <div className="loader-container flex justify-center items-center h-screen w-full">
+        <div className="loader"></div>
+      </div>
+    );
   if (error) return <div>Error loading products...</div>;
 
   return (
