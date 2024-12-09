@@ -58,7 +58,7 @@ const Search = () => {
       </section>
 
       <section className="section__container">
-        <div className="w-full mb-12 flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <input
             type="text"
             value={searchQuery}
@@ -69,6 +69,9 @@ const Search = () => {
         </div>
       </section>
       <div className="section__container">
+        <h3 className="text-xl font-medium">
+          Showing {filteredProducts.length} results
+        </h3>
         {searchQuery && filteredProducts.length === 0 ? (
           <div>No product found!</div>
         ) : (

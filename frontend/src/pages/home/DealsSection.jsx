@@ -1,4 +1,44 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 const DealsSection = () => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const loginTime = useSelector((state) => state.auth.loginTime);
+
+  useEffect(() => {
+    if (loginTime) {
+      const targetDate = new Date(loginTime + 14 * 24 * 60 * 60 * 1000);
+
+      const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+          clearInterval(interval);
+          setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        } else {
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          setTimeLeft({ days, hours, minutes, seconds });
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [loginTime]);
+
   return (
     <section className="section__container deals__container">
       <img
@@ -7,8 +47,8 @@ const DealsSection = () => {
       />
 
       <div className="deals__content">
-        <h5 className="uppercase">get up to 50% discount</h5>
-        <h4>Deals of the Mont</h4>
+        <h5 className="uppercase">Get up to 50% discount</h5>
+        <h4>Deals of the Month</h4>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
           voluptas adipisci neque esse quis architecto odio labore rerum!
@@ -17,19 +57,19 @@ const DealsSection = () => {
         </p>
         <div className="deals__countdown flex-wrap">
           <div className="deals__countdown__card">
-            <h4>14</h4>
+            <h4>{timeLeft.days}</h4>
             <p>Days</p>
           </div>
           <div className="deals__countdown__card">
-            <h4>20</h4>
+            <h4>{timeLeft.hours}</h4>
             <p>Hours</p>
           </div>
           <div className="deals__countdown__card">
-            <h4>15</h4>
+            <h4>{timeLeft.minutes}</h4>
             <p>Mins</p>
           </div>
           <div className="deals__countdown__card">
-            <h4>05</h4>
+            <h4>{timeLeft.seconds}</h4>
             <p>Secs</p>
           </div>
         </div>
