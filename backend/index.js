@@ -23,12 +23,7 @@ mongoose
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "https://full-stack-e-commerce-plants-website-react.vercel.app",
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -41,7 +36,7 @@ const port = process.env.PORT || 3000;
 
 app.post("/uploadImage", (req, res) => {
   console.log("Received request to upload image");
-  console.log("Image data:", req.body.image?.slice(0, 100)); // Log the first 100 characters of the image data to avoid clutter
+  console.log("Image data:", req.body.image?.slice(0, 100));
 
   uploadImage(req.body.image)
     .then((url) => {
