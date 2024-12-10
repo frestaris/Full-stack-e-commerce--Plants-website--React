@@ -25,7 +25,7 @@ app.use(express.urlencoded({ limit: "25mb", extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://full-stack-e-commerce-plants-website-react.vercel.app/",
+    origin: "https://full-stack-e-commerce-plants-website-react.vercel.app",
     credentials: true,
   })
 );
