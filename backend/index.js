@@ -23,7 +23,12 @@ mongoose
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "https://full-stack-e-commerce-plants-website-react.vercel.app/",
+    credentials: true,
+  })
+);
 
 // Routes
 app.use("/api/auth", authRoutes);
