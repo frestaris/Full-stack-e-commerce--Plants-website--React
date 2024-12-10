@@ -10,13 +10,13 @@ const AdminStats = ({ stats }) => {
             ${(stats?.totalEarnings).toFixed(2)}
           </p>
         </div>
-        <Link to="/dashboard/admin/users">
+        <Link to="/dashboard/admin/manage-orders">
           <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:scale-105 transition-all duration-200 min-h-[150px] flex flex-col justify-between cursor-pointer">
             <h2 className="text-xl font-semibold mb-2">All Orders</h2>
             <p className="text-2xl font-bold">{stats?.totalOrders}</p>
           </div>
         </Link>
-        <Link to="/dashboard/admin/manage-orders">
+        <Link to="/dashboard/admin/users">
           <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:scale-105 transition-all duration-200 min-h-[150px] flex flex-col justify-between cursor-pointer">
             <h2 className="text-xl font-semibold mb-2">All Users</h2>
             <p className="text-2xl font-bold">{stats?.totalUsers}</p>

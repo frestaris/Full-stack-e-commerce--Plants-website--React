@@ -52,7 +52,7 @@ const Login = () => {
             type="email"
             name="email"
             id="email"
-            placeholder="Email..."
+            placeholder="test@gmail.com / admin@gmail.com"
             required
             className="w-full bg-gray-100 focus:outline-none px-5 py-3"
           />
@@ -61,7 +61,7 @@ const Login = () => {
             type="password"
             name="password"
             id="password"
-            placeholder="Password..."
+            placeholder="123456"
             required
             className="w-full bg-gray-100 focus:outline-none px-5 py-3"
           />

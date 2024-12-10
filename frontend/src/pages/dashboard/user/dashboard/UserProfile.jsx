@@ -59,7 +59,7 @@ const UserProfile = () => {
   return (
     <div className="container mx-auto p-6">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <div className="flex items-center mb-4">
+        <div className="flex flex-wrap items-center mb-4">
           <img
             src={
               formData?.profileImage ||

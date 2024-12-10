@@ -5,9 +5,11 @@ import { clearCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 import { getBaseUrl } from "../../utils/baseUrl";
+import { useNavigate } from "react-router-dom";
 
 const OrderSummary = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const products = useSelector((store) => store.cart.products);
   const { tax, taxRate, totalPrice, grandTotal, selectedItems } = useSelector(
@@ -15,11 +17,21 @@ const OrderSummary = () => {
   );
 
   const handleClearCart = () => {
+    if (!user) {
+      toast.error("Please log in to clear your cart.");
+      navigate("/login");
+      return;
+    }
     dispatch(clearCart());
   };
 
   // payment integration
   const makePayment = async () => {
+    if (!user) {
+      toast.error("Please log in to proceed with payment.");
+      navigate("/login");
+      return;
+    }
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PK);
 
     const body = {

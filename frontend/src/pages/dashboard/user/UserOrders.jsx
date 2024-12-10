@@ -99,7 +99,7 @@ const UserOrdersMain = () => {
                     </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    ${order?.amount || "N/A"}
+                    ${order?.amount.toFixed(2) || "N/A"}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <Link
