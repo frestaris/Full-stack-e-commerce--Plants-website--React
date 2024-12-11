@@ -25,7 +25,6 @@ const OrderSummary = () => {
     dispatch(clearCart());
   };
 
-  // payment integration
   const makePayment = async () => {
     if (!user) {
       toast.error("Please log in to proceed with payment.");
@@ -72,6 +71,10 @@ const OrderSummary = () => {
     console.log("result", result);
     if (result.error) {
       console.log("Error", result.error);
+    } else {
+      setTimeout(() => {
+        handleClearCart();
+      }, 5000);
     }
   };
 
@@ -99,7 +102,6 @@ const OrderSummary = () => {
             onClick={(e) => {
               e.stopPropagation();
               makePayment(e);
-              handleClearCart();
             }}
             className="bg-green-800 px-3 py-1.5 text-white mt-2 rounded-md flex justify-between items-center mb-4"
           >

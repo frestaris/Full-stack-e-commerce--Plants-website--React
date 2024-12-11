@@ -81,21 +81,15 @@ const Navbar = () => {
           />
           {isMenuOpen && (
             <ul className="nav-content">
-              <li className="link">
-                <Link to="/" onClick={() => setIsMenuOpen(false)}>
-                  Home
-                </Link>
-              </li>
-              <li className="link">
-                <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
-                  Shop
-                </Link>
-              </li>
-              <li className="link">
-                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                  Contact
-                </Link>
-              </li>
+              <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                <li className="link">Home</li>
+              </Link>
+              <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
+                <li className="link">Shop</li>
+              </Link>
+              <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                <li className="link">Contact</li>
+              </Link>
             </ul>
           )}
         </div>
