@@ -14,22 +14,14 @@ const Blogs = () => {
             key={index}
             className="blog__card cursor-pointer hover:scale-105 transition-all duration-300"
           >
-            <picture>
-              {/* WebP image for modern browsers */}
-              <source
-                srcSet={blog.imageUrl.replace(".jpg", ".webp")}
-                type="image/webp"
-              />
-              {/* Fallback to JPEG image */}
-              <img
-                src={blog.imageUrl}
-                alt={`Blog post: ${blog.title}`}
-                width="600"
-                height="400"
-                loading="lazy"
-                className="w-full h-auto object-cover"
-              />
-            </picture>
+            <img
+              src={blog.imageUrl}
+              alt={`Blog post: ${blog.title}`}
+              width="600"
+              height="400"
+              loading="lazy"
+              className="w-full h-auto object-cover"
+            />
             <div className="blog__card__content">
               <h6>{blog.subtitle}</h6>
               <h4>{blog.title}</h4>

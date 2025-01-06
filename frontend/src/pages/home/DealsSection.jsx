@@ -47,25 +47,12 @@ const DealsSection = () => {
 
   return (
     <section className="section__container deals__container">
-      <picture>
-        {/* WebP image for modern browsers */}
-        <source
-          srcSet="https://www.hgdco.com.au/cdn/shop/collections/pl132-ctn-8.webp?crop=center&height=500&v=1717390298&width=600"
-          type="image/webp"
-        />
-        {/* AVIF image for browsers that support AVIF */}
-        <source
-          srcSet="https://www.hgdco.com.au/cdn/shop/collections/pl132-ctn-8.avif?crop=center&height=500&v=1717390298&width=600"
-          type="image/avif"
-        />
-        {/* Fallback to JPEG image */}
-        <img
-          src="https://www.hgdco.com.au/cdn/shop/collections/pl132-ctn-8.jpg?crop=center&height=500&v=1717390298&width=600"
-          alt="Deals of the Month"
-          loading="lazy"
-          className="w-full h-auto object-cover"
-        />
-      </picture>
+      <img
+        src="https://www.hgdco.com.au/cdn/shop/collections/pl132-ctn-8.jpg?crop=center&height=500&v=1717390298&width=600"
+        alt="Deals of the Month"
+        loading="lazy"
+        className="w-full h-auto object-cover"
+      />
 
       <div className="deals__content">
         <h5 className="uppercase">Get up to 50% discount</h5>
