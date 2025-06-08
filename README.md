@@ -127,7 +127,6 @@ npm start</code></pre>
 
 ![Stripe](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Stripe-1.png)
 ![Payment Status 1](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Payment-status-1.png)
-![Payment Status 2](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Payment-status-2.png)
 
 ### User Dashboard
 
