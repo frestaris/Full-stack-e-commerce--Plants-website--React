@@ -94,33 +94,42 @@ npm start</code></pre>
 
 <hr />
 
-<h2>🖼 Screenshots</h2>
-### 🏠 Home Page
+<h2> Screenshots</h2>
+
+### Home Page
 
 ![Home Page 2](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Home-Page-2.png)
 ![Home Page 3](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Home-Page-3.png)
 ![Home Page 4](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Home-Page-4.png)
 ![Home Page 5](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Home-Page-5.png)
 
-### 🛍 Shop Page
+### Shop Page
 
 ![Shop Page 1](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Shop-Page-1.png)
 
-### 🔍 Search
+### Search
 
 ![Search](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Search-1.png)
 
-### 🛒 Cart
+### Product Page
+
+![Single Product](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Single-product-1.png)
+
+### Contact Page
+
+![Contact Us](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/ContactUs-1.png)
+
+### Cart
 
 ![Cart](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Cart-1.png)
 
-### 🧾 Checkout / Payment
+### Checkout / Payment
 
 ![Stripe](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Stripe-1.png)
 ![Payment Status 1](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Payment-status-1.png)
 ![Payment Status 2](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Payment-status-2.png)
 
-### 🧑‍💼 User Dashboard
+### User Dashboard
 
 ![User Dashboard 1](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/User-Dashboard-1.png)
 ![User Dashboard 2](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/User-Dashboard-2.png)
@@ -128,21 +137,13 @@ npm start</code></pre>
 ![User Dashboard 4](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/User-Dashboard-4.png)
 ![User Dashboard 5](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/User-Dashboard-5.png)
 
-### 🛠 Admin Dashboard
+### Admin Dashboard
 
 ![Admin Dashboard 1](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Admin-Dashboard-1.png)
 ![Admin Dashboard 2](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Admin-Dashboard-2.png)
 ![Admin Dashboard 3](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Admin-Dashboard-3.png)
 ![Admin Dashboard 4](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Admin-Dashboard-4.png)
 ![Admin Dashboard 5](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Admin-Dashboard-5.png)
-
-### 📦 Product Page
-
-![Single Product](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/Single-product-1.png)
-
-### 📞 Contact Page
-
-![Contact Us](https://github.com/frestaris/Full-stack-e-commerce--Plants-website--React/raw/master/frontend/src/assets/screenshots/ContactUs-1.png)
 
 <hr />
 
