@@ -81,7 +81,7 @@ const Footer = () => {
         Copyright ©{" "}
         <a
           className="underline text-blue-500"
-          href="https://arisfresta-portfolio.netlify.app/"
+          href="https://aris-fresta-web-developer.netlify.app/"
         >
           Aris Fresta
         </a>{" "}
